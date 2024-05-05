@@ -103,4 +103,4 @@ TODO
 [cmp-nvim-lsp]: https://github.com/hrsh7th/cmp-nvim-lsp
 [copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [nvim-surround]: https://github.com/kylechui/nvim-surround
-[Comment.nvim]: https://github.com/numToStr/Comment.nvim
+[Comments.nvim]: https://github.com/numToStr/Comment.nvim
