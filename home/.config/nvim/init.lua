@@ -176,12 +176,22 @@ require("lazy").setup({
   },
 })
 
+-- Options
+
 -- Indent
-vim.opt.tabstop = 2        -- TAB is visually represented by 4 spaces
-vim.opt.expandtab = true   -- Pressing TAB inserts spaces
-vim.opt.softtabstop = 2    -- Number of spaces to insert when pressing TAB
-vim.opt.shiftwidth = 2     -- Number up spaces inserted when indenting
+vim.opt.tabstop = 2           -- TAB is visually represented by 4 spaces
+vim.opt.expandtab = true      -- Pressing TAB inserts spaces
+vim.opt.softtabstop = 2       -- Number of spaces to insert when pressing TAB
+vim.opt.shiftwidth = 2        -- Number up spaces inserted when indenting
+vim.opt.smartindent = true    -- Automatically indent on new lines
 
 -- Misc
-vim.opt.number = true      -- Show line numbers
-vim.opt.smartindent = true -- Automatically indent on new lines
+vim.opt.number = true         -- Show line numbers
+vim.opt.relativenumber = true -- Show relative line numbers, together gives hybrid line numbers
+
+-- Keymaps
+
+-- Make j and k sane with line wrapping
+vim.keymap.set('n', 'j', 'gj', { silent=true })
+vim.keymap.set('n', 'k', 'gk', { silent=true })
+
