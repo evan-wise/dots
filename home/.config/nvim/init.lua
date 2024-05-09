@@ -117,8 +117,7 @@ require("lazy").setup({
     "neovim/nvim-lspconfig",
     version = "*",
     dependencies = { 'hrsh7th/cmp-nvim-lsp' },
-    config = function()
-      local lspconfig = require('lspconfig')
+    config = function() local lspconfig = require('lspconfig')
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local on_attach = function(_, bufnr)
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
@@ -196,8 +195,8 @@ vim.opt.textwidth = 80        -- Wrap text at 80 characters
 vim.keymap.set('n', 'j', 'gj', { silent=true })
 vim.keymap.set('n', 'k', 'gk', { silent=true })
 
--- Use Q for formatting
--- (NOTE: using gw instead of gq since gq uses LSP formatting by default)
+-- Use Q for formatting, I do not use Ex mode
+-- NOTE: using gw instead of gq since gq uses LSP formatting by default, see this PR: https://github.com/neovim/neovim/pull/19677
 vim.keymap.set('n', 'Q', 'gw', { silent=true })
 vim.keymap.set('n', 'QQ', 'gww', { silent=true })
 
