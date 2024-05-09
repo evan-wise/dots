@@ -123,6 +123,7 @@ require("lazy").setup({
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
         vim.keymap.set('n', 'K'    , vim.lsp.buf.hover         , bufopts)
+        vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float, bufopts)
       end
 
       lspconfig.tsserver.setup({
