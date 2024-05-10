@@ -3,24 +3,24 @@
 -- Purpose: Configuration file for neovim text editor
 
 -- Install lazy.nvim if not already done.
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
+    'git',
+    'clone',
+    '--filter=blob:none',
+    'https://github.com/folke/lazy.nvim.git',
+    '--branch=stable', -- latest stable release
     lazypath,
   })
 end
 vim.opt.rtp:prepend(lazypath)
 
 -- Configure Plugins
-require("lazy").setup({
+require('lazy').setup({
   {
-    "maxmx03/solarized.nvim",
-    version = "*",
+    'maxmx03/solarized.nvim',
+    version = '*',
     lazy = false,
     config = function ()
       require('solarized').setup({
@@ -33,8 +33,8 @@ require("lazy").setup({
   },
   {
     'nvim-telescope/telescope.nvim',
-    version = "*",
-    event = "BufReadPre",
+    version = '*',
+    event = 'BufReadPre',
     dependencies = { 'nvim-lua/plenary.nvim',  },
     config = function()
       local builtin = require('telescope.builtin')
@@ -46,29 +46,27 @@ require("lazy").setup({
   },
   {
     'nvim-treesitter/nvim-treesitter',
-    version = "*",
-    event = "BufReadPre",
+    version = '*',
+    event = 'BufReadPre',
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
         ensure_installed = { 'typescript', 'lua' },
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false,
-        },
-        additional_vim_regex_highlighting = false,
+          additional_vim_regex_highlighting = false, }, additional_vim_regex_highlighting = false,
         indent = false,
       })
     end,
   },
   {
-    "L3MON4D3/LuaSnip",
-    version = "*",
+    'L3MON4D3/LuaSnip',
+    version = '*',
   },
   {
     'hrsh7th/nvim-cmp',
-    version = "*",
-    Event = "InsertEnter",
+    version = '*',
+    Event = 'InsertEnter',
     config = function()
       local cmp = require('cmp')
       local luasnip = require('luasnip')
@@ -114,11 +112,11 @@ require("lazy").setup({
     end,
   },
   {
-    "neovim/nvim-lspconfig",
-    version = "*",
+    'neovim/nvim-lspconfig',
+    version = '*',
     dependencies = { 'hrsh7th/cmp-nvim-lsp' },
     config = function() local lspconfig = require('lspconfig')
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = function(_, bufnr)
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
         vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
@@ -147,29 +145,29 @@ require("lazy").setup({
     ft = { 'typescript', 'javasript', 'lua' }
   },
   {
-    "zbirenbaum/copilot.lua",
-    version = "*",
-    cmd = "Copilot",
-    event = "InsertEnter",
+    'zbirenbaum/copilot.lua',
+    version = '*',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
     config = function()
-      require("copilot").setup({
+      require('copilot').setup({
         suggestion = { auto_trigger = true },
         panel = { enabled = false },
       })
     end,
   },
   {
-    "kylechui/nvim-surround",
-    version = "*",
-    event = "VeryLazy",
+    'kylechui/nvim-surround',
+    version = '*',
+    event = 'VeryLazy',
     config = function()
       require('nvim-surround').setup({})
     end,
   },
   {
     'numToStr/Comment.nvim',
-    version = "*",
-    event = "VeryLazy",
+    version = '*',
+    event = 'VeryLazy',
     config = function()
       require('Comment').setup({})
     end,
@@ -189,6 +187,7 @@ vim.opt.smartindent = true    -- Automatically indent on new lines
 vim.opt.number = true         -- Show line numbers
 vim.opt.relativenumber = true -- Show relative line numbers, together gives hybrid line numbers
 vim.opt.textwidth = 80        -- Wrap text at 80 characters
+vim.opt.colorcolumn = '80'    -- Highlight column 80
 
 -- Keymaps
 
@@ -201,3 +200,20 @@ vim.keymap.set('n', 'k', 'gk', { silent=true })
 vim.keymap.set('n', 'Q', 'gw', { silent=true })
 vim.keymap.set('n', 'QQ', 'gww', { silent=true })
 
+
+vim.api.nvim_create_augroup('NumberToggle', {});
+vim.api.nvim_create_autocmd({ 'InsertEnter', 'CmdlineEnter' }, {
+  group = 'NumberToggle',
+  callback = function(args)
+    vim.opt.relativenumber = false
+    if args.event == 'CmdlineEnter' then
+      vim.cmd('redraw')
+    end
+  end,
+});
+vim.api.nvim_create_autocmd({ 'InsertLeave', 'CmdlineLeave' }, {
+  group = 'NumberToggle',
+  callback = function()
+    vim.opt.relativenumber = true
+  end,
+});
