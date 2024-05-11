@@ -22,8 +22,7 @@ config.keys = {
 
 -- Windows specific overrides
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-  config.color_scheme = "Tokyo Night Storm";
-  config.default_prog = {"powershell.exe", "-NoLogo"};
+  config.default_prog = {"wsl", "-u", "evan"};
 end
 
 
