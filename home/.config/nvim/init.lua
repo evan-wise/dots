@@ -86,7 +86,11 @@ require('lazy').setup({
         ensure_installed = { 'typescript', 'lua' },
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false, }, additional_vim_regex_highlighting = false,
+          -- Consider turning off if performance is an issue, makes syntax
+          -- highlighting for Markdown work better on Ubuntu (maybe parser
+          -- version?)
+          additional_vim_regex_highlighting = true,
+        },
         indent = false,
       })
     end,
