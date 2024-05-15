@@ -1,5 +1,5 @@
 -- Author: Evan Wise
--- Revision Date: 2024-05-05
+-- Revision Date: 2024-05-14
 -- Purpose: Configuration file for neovim text editor
 
 -- Install lazy.nvim if not already done.
@@ -19,16 +19,13 @@ vim.opt.rtp:prepend(lazypath)
 -- Configure Plugins
 require('lazy').setup({
   {
-    'maxmx03/solarized.nvim',
+    'folke/tokyonight.nvim',
     version = '*',
     lazy = false,
     config = function ()
-      require('solarized').setup({
-        palette = 'selenized',
-      })
       vim.opt.termguicolors = true
       vim.opt.background = 'dark'
-      vim.cmd.colorscheme('solarized')
+      vim.cmd.colorscheme('tokyonight-storm')
     end
   },
   {

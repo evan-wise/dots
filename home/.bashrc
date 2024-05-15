@@ -1,57 +1,11 @@
 # Author: Evan Wise
-# Revision Date: 2024-05-05
+# Revision Date: 2024-05-14
 
 ################################################################################
 # Bash shell options
 ################################################################################
 # Use vi editor mode.
 set -o vi
-
-################################################################################
-# Environment variable manipulation.
-################################################################################
-#
-# Use neovim as the default editor.
-if [ -e /usr/bin/nvim ] ; then
-    VISUAL=/usr/bin/nvim; export VISUAL
-    EDITOR=/usr/bin/nvim; export EDITOR
-else
-    VISUAL=/usr/bin/vi; export VISUAL
-    EDITOR=/usr/bin/vi; export EDITOR
-fi
-
-################################################################################
-# Aliases
-################################################################################
-
-# Setting helpful default flags
-########################################
-
-# Use vim key binding for info.
-alias info='info --vi-keys'
-alias ls='ls --color=auto'
-alias grep='grep --color=auto'
-
-# Keystroke savers
-########################################
-
-# Use long listing format with ls and show file size.
-alias ll='ls -lAsh'
-
-# Pipe ls output to grep
-alias lg='ls -lAsh | grep'
-
-# Quickly edit this file.
-alias e~='nvim ~/.bashrc'
-# Quickly source this file.
-alias .~='. ~/.bashrc'
-
-# Jump up a directory.
-alias ..='cd ..'
-
-# Vim habits die hard...
-alias :e='nvim'
-alias :q='echo "Exit?(Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * ) ;; esac'
 
 ################################################################################
 # Functions
@@ -139,6 +93,39 @@ memo() {
 
     return 0
 }
+
+################################################################################
+# Aliases
+################################################################################
+
+# Setting helpful default flags
+########################################
+
+# Use vim key binding for info.
+alias info='info --vi-keys'
+alias ls='ls --color=auto'
+alias grep='grep --color=auto'
+
+# Keystroke savers
+########################################
+
+# Use long listing format with ls and show file size.
+alias ll='ls -lAsh'
+
+# Pipe ls output to grep
+alias lg='ls -lAsh | grep'
+
+# Quickly edit this file.
+alias e~='nvim ~/.bashrc'
+# Quickly source this file.
+alias .~='. ~/.bashrc'
+
+# Jump up a directory.
+alias ..='cd ..'
+
+# Vim habits die hard...
+alias :e='nvim'
+alias :q='echo "Exit?(Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * ) ;; esac'
 
 ################################################################################
 # Import idioms (should be last)
