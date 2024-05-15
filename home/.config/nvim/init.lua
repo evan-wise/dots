@@ -1,6 +1,11 @@
 -- Author: Evan Wise
--- Revision Date: 2024-05-14
+-- Revision Date: 2024-05-15
 -- Purpose: Configuration file for neovim text editor
+
+
+-- Disable netrw (using nvim-tree instead)
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
 -- Install lazy.nvim if not already done.
 local lazypath = vim.fn.stdpath('data') .. '/lazy/lazy.nvim'
@@ -34,11 +39,41 @@ require('lazy').setup({
     event = 'BufReadPre',
     dependencies = { 'nvim-lua/plenary.nvim',  },
     config = function()
+      local telescope = require('telescope')
       local builtin = require('telescope.builtin')
-      vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
-      vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
+      local opts = { noremap=true, silent=true }
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep , opts)
+      vim.keymap.set('n', '<leader>fb', builtin.buffers   , opts)
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags , opts)
+
+      telescope.setup({
+        pickers = {
+          find_files = {
+            find_command = { 'rg', '--files', '--hidden', '--follow', '--glob', '!.git' },
+          },
+        }
+      })
+    end,
+  },
+  {
+    'nvim-tree/nvim-tree.lua',
+    version = '*',
+    event = 'BufReadPre',
+    config = function()
+      require('nvim-tree').setup({
+        disable_netrw = true,
+        sort = {
+          sorter = 'case_sensitive',
+          folders_first = true,
+        },
+        view = {
+          width = 30,
+        },
+      })
+
+      local opts = { noremap=true, silent=true }
+      vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>', opts)
     end,
   },
   {
@@ -116,9 +151,11 @@ require('lazy').setup({
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = function(_, bufnr)
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
         vim.keymap.set('n', 'K'    , vim.lsp.buf.hover         , bufopts)
-        vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float, bufopts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float , bufopts)
+        vim.keymap.set('n', 'gd'   , vim.lsp.buf.definition    , bufopts)
+        vim.keymap.set('n', 'gD'   , vim.lsp.buf.declaration   , bufopts)
       end
 
       lspconfig.tsserver.setup({
