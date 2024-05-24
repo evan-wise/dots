@@ -3,10 +3,18 @@ dots
 
 Another exceptionally unremarkable dotfile repository.
 
+This basically just exists for my own sanity, but if you see anything useful
+feel free to steal it. I stole most of this stuff. Also, if you see anything
+obviously or obscurely stupid, please let me know. Use at your own risk.
+
 Contents
 --------
 
-The files and directories to be copied to the user's home directory are stored in the `home` directory. Copying files and directories is accomplished using `rsync`. This provides a simple way to manage both the dotfiles and standard working directories without having to directly update the setup script every time a new file is added.
+The files and directories to be copied to the user's home directory are stored
+in the `home` directory. Copying files and directories is accomplished using
+`rsync`. This provides a simple way to manage both the dotfiles and standard
+working directories without having to directly update the setup script every
+time a new file is added.
 
 ### Dotfiles
 
@@ -37,6 +45,7 @@ The files and directories to be copied to the user's home directory are stored i
 * [`lazy.nvim`][lazy.nvim]: plugin manager for NeoVim, manages other plugins below.
 * [`solarized.nvim`][solarized.nvim]: solarized color scheme for NeoVim.
 * [`telescope.nvim`][telescope.nvim]: fuzzy file finder. 
+* [`nvim-tree`][nvim-tree]: filesystem tree viewer.
 * [`nvim-treesitter`][nvim-treesitter]: parser based syntax highlighting.
 * [`LuaSnip`][LuaSnip]: snippet engine, used by `nvim-cmp` and required for some LSPs.
 * [`nvim-cmp`][nvim-cmp]: completion plugin for NeoVim.
@@ -66,6 +75,8 @@ I suspect you can guess the first step, clone the github repository.
 ### Linux
 
 On GNU/Linux systems, you should be able to run the included script, `setup.sh`.
+It accepts a command line option `-i` which will cause it to attempt to install
+system dependencies.
 
 ### Other Operation Systems
 
@@ -75,17 +86,14 @@ I haven't tested this on any other operating systems.
 Removal
 -------
 
-This is manual. If I am exactly the right amount of lazy I will add options to the setup scripts to do this automatically.
+This is manual. If I am exactly the right amount of lazy I will add options to
+the setup scripts to do this automatically.
 
-Information
------------
-
-This basically just exists for my own sanity, but if you see anything useful feel free to steal it. I stole most of this stuff. Also, if you see anything obviously or obscurely stupid, please let me know. Use at your own risk.
 
 TODO
 ----
 
-* Automate installation of system packages and global `npm` packages.
+* Write a service to automate deploying updates.
 
 <!-- References -->
 
@@ -96,6 +104,7 @@ TODO
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
+[nvim-tree]: https://github.com/nvim-tree/nvim-tree.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [LuaSnip]: https://github.com/L3MON4D3/LuaSnip
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
