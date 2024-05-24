@@ -1,5 +1,5 @@
 -- Author: Evan Wise
--- Revision Date: 2024-05-15
+-- Revision Date: 2024-05-24
 -- Purpose: Configuration file for neovim text editor
 
 
@@ -155,11 +155,16 @@ require('lazy').setup({
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = function(_, bufnr)
         local bufopts = { noremap=true, silent=true, buffer=bufnr }
-        vim.keymap.set('n', 'K'    , vim.lsp.buf.hover         , bufopts)
-        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set('n', '<M-k>', vim.diagnostic.open_float , bufopts)
-        vim.keymap.set('n', 'gd'   , vim.lsp.buf.definition    , bufopts)
-        vim.keymap.set('n', 'gD'   , vim.lsp.buf.declaration   , bufopts)
+        vim.keymap.set('n', 'K'        , vim.lsp.buf.hover          , bufopts)
+        vim.keymap.set('n', 'gd'       , vim.lsp.buf.definition     , bufopts)
+        vim.keymap.set('n', 'gD'       , vim.lsp.buf.declaration    , bufopts)
+        vim.keymap.set('n', 'gr'       , vim.lsp.buf.references     , bufopts)
+        vim.keymap.set('n', 'gI'       , vim.lsp.buf.implementation , bufopts) -- Remaps a default binding I don't use
+        vim.keymap.set('n', 'gt'       , vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help , bufopts)
+        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename         , bufopts)
+        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action    , bufopts)
+        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float  , bufopts)
       end
 
       lspconfig.tsserver.setup({
