@@ -1,5 +1,5 @@
 -- Author: Evan Wise
--- Revision Date: 2024-05-24
+-- Revision Date: 2024-06-08
 -- Purpose: Configuration file for neovim text editor
 
 
@@ -83,13 +83,10 @@ require('lazy').setup({
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
-        ensure_installed = { 'typescript', 'lua' },
+        ensure_installed = { 'typescript', 'lua', 'python', 'json', 'html', 'css', 'markdown' },
         highlight = {
           enable = true,
-          -- Consider turning off if performance is an issue, makes syntax
-          -- highlighting for Markdown work better on Ubuntu (maybe parser
-          -- version?)
-          additional_vim_regex_highlighting = true,
+          additional_vim_regex_highlighting = false,
         },
         indent = false,
       })
@@ -172,6 +169,11 @@ require('lazy').setup({
         on_attach = on_attach,
       })
 
+      lspconfig.pyright.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
+
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
@@ -185,7 +187,7 @@ require('lazy').setup({
         }
       })
     end,
-    ft = { 'typescript', 'javasript', 'lua' }
+    ft = { 'typescript', 'javasript', 'lua', 'python' }
   },
   {
     'zbirenbaum/copilot.lua',
@@ -243,7 +245,10 @@ vim.keymap.set('n', 'k', 'gk', { silent=true })
 vim.keymap.set('n', 'Q', 'gw', { silent=true })
 vim.keymap.set('n', 'QQ', 'gww', { silent=true })
 
+-- Autocommands
 
+-- Turn off relative line numbers in command line and insert mode, turn back on
+-- for normal mode where they are most useful.
 vim.api.nvim_create_augroup('NumberToggle', {});
 vim.api.nvim_create_autocmd({ 'InsertEnter', 'CmdlineEnter' }, {
   group = 'NumberToggle',

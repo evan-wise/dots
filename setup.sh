@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Author: Evan Wise
-# Revision Date: 2024-05-11
+# Revision Date: 2024-06-08
 # Purpose: Installs dotfiles and sets up home directory
 
 # Exit the script if any command throws an error.
@@ -22,7 +22,7 @@ if [ "$user_name" = "root" ]; then
 fi
 home_dir=$(getent passwd "$user_name" | cut -d: -f6)
 
-system_packages="git tmux neovim nodejs gcc"
+system_packages="git tmux neovim nodejs gcc pyright"
 npm_packages="typescript-language-server typescript"
 
 # Main Body
