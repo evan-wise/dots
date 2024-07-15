@@ -1,7 +1,6 @@
 -- Author: Evan Wise
--- Revision Date: 2024-06-08
+-- Revision Date: 2024-07-15
 -- Purpose: Configuration file for neovim text editor
-
 
 -- Disable netrw (using nvim-tree instead)
 vim.g.loaded_netrw = 1
@@ -86,7 +85,7 @@ require('lazy').setup({
         ensure_installed = { 'typescript', 'lua', 'python', 'json', 'html', 'css', 'markdown' },
         highlight = {
           enable = true,
-          additional_vim_regex_highlighting = false,
+          additional_vim_regex_highlighting = true,
         },
         indent = false,
       })
