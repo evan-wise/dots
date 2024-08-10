@@ -1,6 +1,8 @@
 -- Author: Evan Wise
 -- Revision Date: 2024-08-10
 -- Purpose: Configuration file for neovim text editor
+
+-- Local modules
 local util = require('util')
 
 -- Disable netrw (using nvim-tree instead)
@@ -33,6 +35,18 @@ require('lazy').setup({
       vim.cmd.colorscheme('tokyonight-storm')
     end
   },
+  {
+    'folke/lazydev.nvim',
+    version = '*',
+    ft = 'lua',
+    opts = {
+      library = {
+        -- Only load if `vim.uv` is found
+        { path = "luvit-meta/library", words = { "vim%.uv" } },
+      },
+    },
+  },
+  { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
   {
     'nvim-telescope/telescope.nvim',
     version = '*',
@@ -84,6 +98,10 @@ require('lazy').setup({
     config = function()
       require('nvim-treesitter.configs').setup({
         ensure_installed = { 'typescript', 'lua', 'python', 'json', 'html', 'css', 'markdown' },
+        sync_install = false,
+        auto_install = true,
+        ignore_install = {},
+        modules = {},
         highlight = {
           enable = true,
           additional_vim_regex_highlighting = true,
@@ -140,6 +158,7 @@ require('lazy').setup({
           { name = 'nvim_lsp', keyword_length = 1 },
           { name = 'buffer',   keyword_length = 2 },
           { name = 'path',     keyword_length = 3 },
+          { name = 'lazydev',  group_index = 0 },
         }),
       })
     end,
@@ -178,17 +197,9 @@ require('lazy').setup({
       lspconfig.lua_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
-        settings = {
-          Lua = {
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = { 'vim' },
-            },
-          }
-        }
       })
     end,
-    ft = { 'typescript', 'javasript', 'lua', 'python' }
+    ft = { 'typescript', 'javasript', 'python', 'lua' }
   },
   {
     'zbirenbaum/copilot.lua',
@@ -207,7 +218,7 @@ require('lazy').setup({
     version = '*',
     event = 'VeryLazy',
     config = function()
-      require('nvim-surround').setup({})
+      require('nvim-surround').setup()
     end,
   },
   {
@@ -215,7 +226,7 @@ require('lazy').setup({
     version = '*',
     event = 'VeryLazy',
     config = function()
-      require('Comment').setup({})
+      require('Comment').setup()
     end,
   },
 })

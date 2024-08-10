@@ -41,7 +41,9 @@ time a new file is added.
 ### NeoVim plugins
 
 - [`lazy.nvim`][lazy.nvim]: plugin manager for NeoVim, manages other plugins below.
-- [`solarized.nvim`][solarized.nvim]: solarized color scheme for NeoVim.
+- [`folke/tokyonight.nvim`][tokyonight.nvim]: Tokyo Night colorscheme for NeoVim.
+- [`folke/lazydev.nvim`][lazydev.nvim]: types and completions for NeoVim config files.
+- [`Bilal2453/luvit-meta`][luvit-meta]: types for `vim.uv`
 - [`telescope.nvim`][telescope.nvim]: fuzzy file finder.
 - [`nvim-tree`][nvim-tree]: filesystem tree viewer.
 - [`nvim-treesitter`][nvim-treesitter]: parser based syntax highlighting.
@@ -93,6 +95,9 @@ the setup scripts to do this automatically.
 [tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
 [tmux-autoreload]: https://github.com/b0o/tmux-autoreload
 [lazy.nvim]: https://github.com/folke/lazy.nvim
+[lazydev.nvim]: https://github.com/folke/lazydev.nvim
+[tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
+[luvit-meta]: https://github.com/Bilal2453/luvit-meta
 [solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [nvim-tree]: https://github.com/nvim-tree/nvim-tree.lua
