@@ -1,6 +1,7 @@
 -- Author: Evan Wise
--- Revision Date: 2024-07-15
+-- Revision Date: 2024-08-10
 -- Purpose: Configuration file for neovim text editor
+local util = require('util')
 
 -- Disable netrw (using nvim-tree instead)
 vim.g.loaded_netrw = 1
@@ -26,7 +27,7 @@ require('lazy').setup({
     'folke/tokyonight.nvim',
     version = '*',
     lazy = false,
-    config = function ()
+    config = function()
       vim.opt.termguicolors = true
       vim.opt.background = 'dark'
       vim.cmd.colorscheme('tokyonight-storm')
@@ -36,15 +37,15 @@ require('lazy').setup({
     'nvim-telescope/telescope.nvim',
     version = '*',
     event = 'BufReadPre',
-    dependencies = { 'nvim-lua/plenary.nvim',  },
+    dependencies = { 'nvim-lua/plenary.nvim', },
     config = function()
       local telescope = require('telescope')
       local builtin = require('telescope.builtin')
-      local opts = { noremap=true, silent=true }
+      local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<leader>ff', builtin.find_files, opts)
-      vim.keymap.set('n', '<leader>fg', builtin.live_grep , opts)
-      vim.keymap.set('n', '<leader>fb', builtin.buffers   , opts)
-      vim.keymap.set('n', '<leader>fh', builtin.help_tags , opts)
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, opts)
+      vim.keymap.set('n', '<leader>fb', builtin.buffers, opts)
+      vim.keymap.set('n', '<leader>fh', builtin.help_tags, opts)
 
       telescope.setup({
         pickers = {
@@ -71,7 +72,7 @@ require('lazy').setup({
         },
       })
 
-      local opts = { noremap=true, silent=true }
+      local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>', opts)
     end,
   },
@@ -133,12 +134,12 @@ require('lazy').setup({
             else
               fallback()
             end
-          end, {'i', 's'}),
+          end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
-          { name = 'nvim_lsp', keyword_length=1 },
-          { name = 'buffer',   keyword_length=2 },
-          { name = 'path',     keyword_length=3 },
+          { name = 'nvim_lsp', keyword_length = 1 },
+          { name = 'buffer',   keyword_length = 2 },
+          { name = 'path',     keyword_length = 3 },
         }),
       })
     end,
@@ -147,20 +148,21 @@ require('lazy').setup({
     'neovim/nvim-lspconfig',
     version = '*',
     dependencies = { 'hrsh7th/cmp-nvim-lsp' },
-    config = function() local lspconfig = require('lspconfig')
+    config = function()
+      local lspconfig = require('lspconfig')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = function(_, bufnr)
-        local bufopts = { noremap=true, silent=true, buffer=bufnr }
-        vim.keymap.set('n', 'K'        , vim.lsp.buf.hover          , bufopts)
-        vim.keymap.set('n', 'gd'       , vim.lsp.buf.definition     , bufopts)
-        vim.keymap.set('n', 'gD'       , vim.lsp.buf.declaration    , bufopts)
-        vim.keymap.set('n', 'gr'       , vim.lsp.buf.references     , bufopts)
-        vim.keymap.set('n', 'gI'       , vim.lsp.buf.implementation , bufopts) -- Remaps a default binding I don't use
-        vim.keymap.set('n', 'gt'       , vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help , bufopts)
-        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename         , bufopts)
-        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action    , bufopts)
-        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float  , bufopts)
+        local bufopts = { noremap = true, silent = true, buffer = bufnr }
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+        vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, bufopts)         -- Remaps a default binding I don't use
+        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
+        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
+        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, bufopts)
       end
 
       lspconfig.tsserver.setup({
@@ -221,11 +223,11 @@ require('lazy').setup({
 -- Options
 
 -- Indent
-vim.opt.tabstop = 2           -- TAB is visually represented by 4 spaces
-vim.opt.expandtab = true      -- Pressing TAB inserts spaces
-vim.opt.softtabstop = 2       -- Number of spaces to insert when pressing TAB
-vim.opt.shiftwidth = 2        -- Number up spaces inserted when indenting
-vim.opt.smartindent = true    -- Automatically indent on new lines
+vim.opt.tabstop = 2        -- TAB is visually represented by 4 spaces
+vim.opt.expandtab = true   -- Pressing TAB inserts spaces
+vim.opt.softtabstop = 2    -- Number of spaces to insert when pressing TAB
+vim.opt.shiftwidth = 2     -- Number up spaces inserted when indenting
+vim.opt.smartindent = true -- Automatically indent on new lines
 
 -- Misc
 vim.opt.number = true         -- Show line numbers
@@ -236,20 +238,47 @@ vim.opt.colorcolumn = '80'    -- Highlight column 80
 -- Keymaps
 
 -- Make j and k sane with line wrapping
-vim.keymap.set('n', 'j', 'gj', { silent=true })
-vim.keymap.set('n', 'k', 'gk', { silent=true })
+vim.keymap.set('n', 'j', 'gj', { silent = true })
+vim.keymap.set('n', 'k', 'gk', { silent = true })
 
 -- Use Q for formatting, I do not use Ex mode
--- NOTE: using gw instead of gq since gq uses LSP formatting by default, see this PR: https://github.com/neovim/neovim/pull/19677
-vim.keymap.set('n', 'Q', 'gw', { silent=true })
-vim.keymap.set('n', 'QQ', 'gww', { silent=true })
+-- NOTE: using gw instead of gq since gq uses LSP formatting by default, see
+-- this PR: https://github.com/neovim/neovim/pull/19677
+vim.keymap.set('n', 'Q', 'gw', { silent = true })
+vim.keymap.set('n', 'QQ', 'gww', { silent = true })
+
+-- Commands
+
+-- Format file with prettier
+vim.api.nvim_create_user_command('Prettier',
+  function(opts)
+    local pos = vim.api.nvim_win_get_cursor(0)
+    local lines = vim.api.nvim_buf_get_lines(0, opts.line1 - 1, opts.line2, false)
+    local cmd = 'npx prettier --stdin-filepath ' .. vim.fn.expand('%')
+
+    local exit_code, result, error = util.run_command(cmd, table.concat(lines, '\n'))
+    if exit_code ~= 0 then
+      print("Command '" .. cmd .. "' failed with exit code: " .. exit_code)
+      print("Error: " .. error)
+      return
+    end
+    if result ~= '' then
+      local new_lines = vim.split(vim.trim(result), '\n')
+      vim.api.nvim_buf_set_lines(0, opts.line1 - 1, opts.line2, false, new_lines)
+    end
+    vim.api.nvim_win_set_cursor(0, pos)
+  end,
+  { nargs = 0, range = true }
+);
 
 -- Autocommands
 
 -- Turn off relative line numbers in command line and insert mode, turn back on
 -- for normal mode where they are most useful.
 vim.api.nvim_create_augroup('NumberToggle', {});
-vim.api.nvim_create_autocmd({ 'InsertEnter', 'CmdlineEnter' }, {
+vim.api.nvim_create_autocmd({
+  'InsertEnter', 'CmdlineEnter'
+}, {
   group = 'NumberToggle',
   callback = function(args)
     vim.opt.relativenumber = false
@@ -258,9 +287,24 @@ vim.api.nvim_create_autocmd({ 'InsertEnter', 'CmdlineEnter' }, {
     end
   end,
 });
-vim.api.nvim_create_autocmd({ 'InsertLeave', 'CmdlineLeave' }, {
+vim.api.nvim_create_autocmd({
+  'InsertLeave', 'CmdlineLeave'
+}, {
   group = 'NumberToggle',
   callback = function()
     vim.opt.relativenumber = true
+  end,
+});
+
+-- Format *.js, *.ts, *.jsx, *.tsx, *.json, *.html, *.css, *.md files with
+-- prettier on save if .prettierrc exists in the project root.
+vim.api.nvim_create_augroup('PrettierOnSave', {});
+vim.api.nvim_create_autocmd({
+  'BufWritePre',
+}, {
+  pattern = { '*.js', '*.ts', '*.jsx', '*.tsx', '*.json', '*.html', '*.css', '*.md' },
+  group = 'PrettierOnSave',
+  callback = function()
+    vim.cmd('%Prettier')
   end,
 });

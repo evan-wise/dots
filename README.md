@@ -1,5 +1,4 @@
-dots
-====
+# dots
 
 Another exceptionally unremarkable dotfile repository.
 
@@ -7,8 +6,7 @@ This basically just exists for my own sanity, but if you see anything useful
 feel free to steal it. I stole most of this stuff. Also, if you see anything
 obviously or obscurely stupid, please let me know. Use at your own risk.
 
-Contents
---------
+## Contents
 
 The files and directories to be copied to the user's home directory are stored
 in the `home` directory. Copying files and directories is accomplished using
@@ -18,55 +16,52 @@ time a new file is added.
 
 ### Dotfiles
 
-* `.bashrc`: config file for bash shell.
+- `.bashrc`: config file for bash shell.
 
-* `.tmux.confg`: config file for tmux terminal multiplexer.
+- `.tmux.confg`: config file for tmux terminal multiplexer.
 
-* `.config/nvim/init.lua`: config file for NeoVim text editor.
+- `.config/nvim/init.lua`: config file for NeoVim text editor.
 
-* `.wezterm.lua`: config file for WezTerm terminal emulator.
-    - Key features: Highly configurable, many built-in color schemes, ligature support.
+- `.wezterm.lua`: config file for WezTerm terminal emulator.
+  - Key features: Highly configurable, many built-in color schemes, ligature support.
 
 ### Directories
 
-* `.tmux/plugins`: directory for storing tmux plugins.
+- `.tmux/plugins`: directory for storing tmux plugins.
 
-* `src`: directory for storing user authored source code and local copies of public repos. 
+- `src`: directory for storing user authored source code and local copies of public repos.
 
-### tmux plugins 
+### tmux plugins
 
-* [`tpm`][tpm]: plugin manager for tmux, manages other plugins below.
-* [`tmux-sensible`][tmux-sensible]: sensible defaults for tmux.
-* [`tmux-resurrect`][tmux-resurrect]: allows saving and restoring tmux sessions.
-* [`tmux-autoreload`][tmux-autoreload]: automatically reloads `.tmux.conf`.
+- [`tpm`][tpm]: plugin manager for tmux, manages other plugins below.
+- [`tmux-sensible`][tmux-sensible]: sensible defaults for tmux.
+- [`tmux-resurrect`][tmux-resurrect]: allows saving and restoring tmux sessions.
+- [`tmux-autoreload`][tmux-autoreload]: automatically reloads `.tmux.conf`.
 
-### NeoVim plugins 
+### NeoVim plugins
 
-* [`lazy.nvim`][lazy.nvim]: plugin manager for NeoVim, manages other plugins below.
-* [`solarized.nvim`][solarized.nvim]: solarized color scheme for NeoVim.
-* [`telescope.nvim`][telescope.nvim]: fuzzy file finder. 
-* [`nvim-tree`][nvim-tree]: filesystem tree viewer.
-* [`nvim-treesitter`][nvim-treesitter]: parser based syntax highlighting.
-* [`LuaSnip`][LuaSnip]: snippet engine, used by `nvim-cmp` and required for some LSPs.
-* [`nvim-cmp`][nvim-cmp]: completion plugin for NeoVim.
-* [`nvim-lspconfig`][nvim-lspconfig]: common configurations for LSPs.
-* [`cmp-nvim-lsp`][cmp-nvim-lsp]: `nvim-cmp` source for LSPs.
-* [`copilot.lua`][copilot.lua]: GitHub copilot integration.
-* [`nvim-surround`][nvim-surround]: insert / modify / delete surrounding characters and tags.
-* [`Comments.nvim`][Comments.nvim]: easily add and remove line and block comments.
-
+- [`lazy.nvim`][lazy.nvim]: plugin manager for NeoVim, manages other plugins below.
+- [`solarized.nvim`][solarized.nvim]: solarized color scheme for NeoVim.
+- [`telescope.nvim`][telescope.nvim]: fuzzy file finder.
+- [`nvim-tree`][nvim-tree]: filesystem tree viewer.
+- [`nvim-treesitter`][nvim-treesitter]: parser based syntax highlighting.
+- [`LuaSnip`][LuaSnip]: snippet engine, used by `nvim-cmp` and required for some LSPs.
+- [`nvim-cmp`][nvim-cmp]: completion plugin for NeoVim.
+- [`nvim-lspconfig`][nvim-lspconfig]: common configurations for LSPs.
+- [`cmp-nvim-lsp`][cmp-nvim-lsp]: `nvim-cmp` source for LSPs.
+- [`copilot.lua`][copilot.lua]: GitHub copilot integration.
+- [`nvim-surround`][nvim-surround]: insert / modify / delete surrounding characters and tags.
+- [`Comments.nvim`][Comments.nvim]: easily add and remove line and block comments.
 
 ### Other
 
-* `setup.sh`: bash setup script for this repository.
+- `setup.sh`: bash setup script for this repository.
 
-* `LICENSE.txt`: License for this repository.
+- `LICENSE.txt`: License for this repository.
 
-* `README.md`: this file.
+- `README.md`: this file.
 
-
-Installation
-------------
+## Installation
 
 I suspect you can guess the first step, clone the github repository.
 
@@ -82,18 +77,14 @@ system dependencies.
 
 I haven't tested this on any other operating systems.
 
-
-Removal
--------
+## Removal
 
 This is manual. If I am exactly the right amount of lazy I will add options to
 the setup scripts to do this automatically.
 
+## TODO
 
-TODO
-----
-
-* Write a service to automate deploying updates.
+- Write a service to automate deploying updates.
 
 <!-- References -->
 
