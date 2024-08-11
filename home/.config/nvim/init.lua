@@ -4,6 +4,14 @@
 
 local util = require('util')
 
+-- Globals
+
+vim.g.netrw_liststyle = 3    -- Use tree style for netrw
+vim.g.netrw_banner = 0       -- Do not show banner for netrw
+vim.g.netrw_browse_split = 4 -- Open netrw in a vertical split
+vim.g.netrw_winsize = 25     -- Set netrw split width to 25
+vim.g.netrw_altv = 1         -- Open netrw in a vertical split
+
 -- Options
 
 -- Indent
@@ -30,6 +38,10 @@ vim.keymap.set('n', 'k', 'gk', { silent = true })
 -- this PR: https://github.com/neovim/neovim/pull/19677
 vim.keymap.set('n', 'Q', 'gw', { silent = true })
 vim.keymap.set('n', 'QQ', 'gww', { silent = true })
+
+-- Use [b and ]b to navigate buffers
+vim.keymap.set('n', '[b', ':bp<CR>', { silent = true })
+vim.keymap.set('n', ']b', ':bn<CR>', { silent = true })
 
 -- Commands
 
@@ -61,6 +73,9 @@ vim.api.nvim_create_user_command('Prettier',
   end,
   { nargs = 0, range = true }
 );
+
+-- Open project drawer
+vim.api.nvim_create_user_command('Drawer', 'Vexplore  .', { nargs = 0 });
 
 -- Autocommands
 
