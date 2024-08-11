@@ -46,11 +46,18 @@ vim.api.nvim_create_user_command('Prettier',
       print("Error: " .. error)
       return
     end
+    local at_end = opts.line2 == vim.api.nvim_buf_line_count(0)
     if result ~= '' then
       local new_lines = vim.split(vim.trim(result), '\n')
       vim.api.nvim_buf_set_lines(0, opts.line1 - 1, opts.line2, false, new_lines)
+      if at_end then
+        local end_index = vim.api.nvim_buf_line_count(0)
+        vim.api.nvim_buf_set_lines(0, end_index, end_index, false, { '' })
+      end
     end
-    vim.api.nvim_win_set_cursor(0, pos)
+    local row, col = pos[1], pos[2]
+    row = math.min(row, vim.api.nvim_buf_line_count(0))
+    vim.api.nvim_win_set_cursor(0, { row, col })
   end,
   { nargs = 0, range = true }
 );
