@@ -22,7 +22,7 @@ if [ "$user_name" = "root" ]; then
 fi
 home_dir=$(getent passwd "$user_name" | cut -d: -f6)
 
-system_packages="git tmux neovim nodejs gcc pyright"
+system_packages="git tmux neovim nodejs gcc pyright ripgrep"
 npm_packages="typescript-language-server typescript prettier"
 
 # Main Body
