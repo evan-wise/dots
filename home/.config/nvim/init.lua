@@ -1,5 +1,5 @@
 -- Author: Evan Wise
--- Revision Date: 2024-08-10
+-- Revision Date: 2024-08-11
 -- Purpose: Configuration file for neovim text editor
 
 local util = require('util')
@@ -88,17 +88,18 @@ vim.api.nvim_create_autocmd({
 });
 
 -- Format *.js, *.ts, *.jsx, *.tsx, *.json, *.html, *.css, *.md files with
--- prettier on save if .prettierrc exists in the project root.
-vim.api.nvim_create_augroup('PrettierOnSave', {});
-vim.api.nvim_create_autocmd({
-  'BufWritePre',
-}, {
-  pattern = { '*.js', '*.ts', '*.jsx', '*.tsx', '*.json', '*.html', '*.css', '*.md' },
-  group = 'PrettierOnSave',
-  callback = function()
-    vim.cmd('%Prettier')
-  end,
-});
+-- prettier on save.
+-- vim.api.nvim_create_augroup('PrettierOnSave', {});
+-- vim.api.nvim_create_autocmd({
+--   'BufWritePre',
+-- }, {
+--   pattern = { '*.js', '*.ts', '*.jsx', '*.tsx', '*.json', '*.html', '*.css', '*.md' },
+--   group = 'PrettierOnSave',
+--   callback = function()
+--     vim.cmd('%Prettier')
+--   end,
+-- });
+
 -- Install lazy.nvim if not already done.
 util.bootstrap_lazy()
 
