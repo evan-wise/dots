@@ -87,8 +87,13 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       })
+
+      lspconfig.astro.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
     end,
-    ft = { 'typescript', 'javasript', 'python', 'lua' }
+    ft = { 'typescript', 'javasript', 'python', 'lua', 'astro' }
   },
   {
     'zbirenbaum/copilot.lua',

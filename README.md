@@ -45,6 +45,8 @@ time a new file is added.
 - [`folke/lazydev.nvim`][lazydev.nvim]: types and completions for NeoVim config files.
 - [`Bilal2453/luvit-meta`][luvit-meta]: types for `vim.uv`
 - [`telescope.nvim`][telescope.nvim]: fuzzy file finder.
+- [`telescope-fzf-native`][telescope-fzf-native]: fast C implementation of
+  fzf.
 - [`nvim-tree`][nvim-tree]: filesystem tree viewer.
 - [`nvim-treesitter`][nvim-treesitter]: parser based syntax highlighting.
 - [`LuaSnip`][LuaSnip]: snippet engine, used by `nvim-cmp` and required for some LSPs.
@@ -86,7 +88,8 @@ the setup scripts to do this automatically.
 
 ## TODO
 
-- Write a service to automate deploying updates.
+- Come up with some scheme for automatic updates.
+- Allow system specific overrides for environment variables.
 
 <!-- References -->
 
@@ -100,6 +103,7 @@ the setup scripts to do this automatically.
 [luvit-meta]: https://github.com/Bilal2453/luvit-meta
 [solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
+[telescope-fzf-native]: https://github.com/nvim-telescope/telescope-fzf-native.nvim
 [nvim-tree]: https://github.com/nvim-tree/nvim-tree.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [LuaSnip]: https://github.com/L3MON4D3/LuaSnip

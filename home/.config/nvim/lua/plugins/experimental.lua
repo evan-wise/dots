@@ -15,7 +15,6 @@ return {
           width = 30,
         },
       })
-
       local opts = { noremap = true, silent = true }
       vim.keymap.set('n', '<leader>ft', ':NvimTreeToggle<CR>', opts)
     end,

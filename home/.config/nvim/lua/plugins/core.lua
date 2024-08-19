@@ -28,7 +28,7 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter.configs').setup({
-        ensure_installed = { 'typescript', 'lua', 'python', 'json', 'html', 'css', 'markdown' },
+        ensure_installed = { 'typescript', 'tsx', 'lua', 'python', 'json', 'html', 'css', 'markdown', 'astro' },
         sync_install = false,
         auto_install = true,
         ignore_install = {},

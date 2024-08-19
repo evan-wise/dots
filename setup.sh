@@ -23,7 +23,7 @@ fi
 home_dir=$(getent passwd "$user_name" | cut -d: -f6)
 
 system_packages="git tmux neovim nodejs gcc pyright ripgrep"
-npm_packages="typescript-language-server typescript prettier"
+npm_packages="typescript-language-server typescript prettier @astrojs/language-server"
 
 # Main Body
 ################################################################################
