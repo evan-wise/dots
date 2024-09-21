@@ -1,5 +1,5 @@
 -- Author: Evan Wise
--- Revision Date: 2024-08-11
+-- Revision Date: 2024-09-20
 -- Purpose: Configuration file for neovim text editor
 
 local util = require('util')
@@ -49,7 +49,7 @@ vim.keymap.set('n', ']b', ':bn<CR>', { silent = true })
 vim.api.nvim_create_user_command('Prettier',
   function(opts)
     local pos = vim.api.nvim_win_get_cursor(0)
-    local lines = vim.api.nvim_buf_get_lines(0, opts.line1 - 1, opts.line2, false)
+    local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
     local cmd = 'npx prettier --stdin-filepath ' .. vim.fn.expand('%')
 
     local exit_code, result, error = util.run_command(cmd, table.concat(lines, '\n'))
@@ -58,15 +58,14 @@ vim.api.nvim_create_user_command('Prettier',
       print("Error: " .. error)
       return
     end
-    local at_end = opts.line2 == vim.api.nvim_buf_line_count(0)
+
+    local end_index = vim.api.nvim_buf_line_count(0)
     if result ~= '' then
       local new_lines = vim.split(vim.trim(result), '\n')
-      vim.api.nvim_buf_set_lines(0, opts.line1 - 1, opts.line2, false, new_lines)
-      if at_end then
-        local end_index = vim.api.nvim_buf_line_count(0)
-        vim.api.nvim_buf_set_lines(0, end_index, end_index, false, { '' })
-      end
+      vim.api.nvim_buf_set_lines(0, 0, end_index, false, new_lines)
+      vim.api.nvim_buf_set_lines(0, end_index, end_index, false, { '' })
     end
+
     local row, col = pos[1], pos[2]
     row = math.min(row, vim.api.nvim_buf_line_count(0))
     vim.api.nvim_win_set_cursor(0, { row, col })
@@ -79,41 +78,18 @@ vim.api.nvim_create_user_command('Drawer', 'Vexplore  .', { nargs = 0 });
 
 -- Autocommands
 
--- Turn off relative line numbers in command line and insert mode, turn back on
--- for normal mode where they are most useful.
-vim.api.nvim_create_augroup('NumberToggle', {});
-vim.api.nvim_create_autocmd({
-  'InsertEnter', 'CmdlineEnter'
-}, {
-  group = 'NumberToggle',
-  callback = function(args)
-    vim.opt.relativenumber = false
-    if args.event == 'CmdlineEnter' then
-      vim.cmd('redraw')
-    end
-  end,
-});
-vim.api.nvim_create_autocmd({
-  'InsertLeave', 'CmdlineLeave'
-}, {
-  group = 'NumberToggle',
-  callback = function()
-    vim.opt.relativenumber = true
-  end,
-});
-
 -- Format *.js, *.ts, *.jsx, *.tsx, *.json, *.html, *.css, *.md files with
 -- prettier on save.
--- vim.api.nvim_create_augroup('PrettierOnSave', {});
--- vim.api.nvim_create_autocmd({
---   'BufWritePre',
--- }, {
---   pattern = { '*.js', '*.ts', '*.jsx', '*.tsx', '*.json', '*.html', '*.css', '*.md' },
---   group = 'PrettierOnSave',
---   callback = function()
---     vim.cmd('%Prettier')
---   end,
--- });
+vim.api.nvim_create_augroup('PrettierOnSave', {});
+vim.api.nvim_create_autocmd({
+  'BufWritePre',
+}, {
+  pattern = { '*.js', '*.ts', '*.jsx', '*.tsx', '*.json', '*.html', '*.css', '*.md' },
+  group = 'PrettierOnSave',
+  callback = function()
+    vim.cmd('Prettier')
+  end,
+});
 
 -- Install lazy.nvim if not already done.
 util.bootstrap_lazy()
