@@ -73,7 +73,7 @@ return {
         vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, bufopts)
       end
 
-      lspconfig.tsserver.setup({
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
         on_attach = on_attach,
       })
