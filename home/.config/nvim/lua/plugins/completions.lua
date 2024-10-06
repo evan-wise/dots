@@ -92,8 +92,13 @@ return {
         capabilities = capabilities,
         on_attach = on_attach,
       })
+
+      lspconfig.rust_analyzer.setup({
+        capabilities = capabilities,
+        on_attach = on_attach,
+      })
     end,
-    ft = { 'typescript', 'javasript', 'python', 'lua', 'astro' }
+    ft = { 'typescript', 'javasript', 'python', 'lua', 'astro', 'rust' },
   },
   {
     'zbirenbaum/copilot.lua',
