@@ -1,5 +1,5 @@
 # Author: Evan Wise
-# Revision Date: 2024-05-14
+# Revision Date: 2024-10-21
 
 ################################################################################
 # Bash shell options
@@ -98,13 +98,17 @@ memo() {
 # Aliases
 ################################################################################
 
-# Setting helpful default flags
+# Setting helpful flags
 ########################################
 
 # Use vim key binding for info.
 alias info='info --vi-keys'
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
+
+# Workaround for password store autodetection not working right with
+# gnome-keyring under Hyprland.
+alias vivaldi='vivaldi --password-store=gnome-libsecret'
 
 # Keystroke savers
 ########################################
@@ -115,17 +119,13 @@ alias ll='ls -lAsh'
 # Pipe ls output to grep
 alias lg='ls -lAsh | grep'
 
-# Quickly edit this file.
-alias e~='nvim ~/.bashrc'
-# Quickly source this file.
-alias .~='. ~/.bashrc'
-
 # Jump up a directory.
 alias ..='cd ..'
 
 # Vim habits die hard...
+alias vim='nvim'
 alias :e='nvim'
-alias :q='echo "Exit?(Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * ) ;; esac'
+alias :q='echo "Exit? (Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * ) ;; esac'
 
 ################################################################################
 # Import idioms (should be last)
