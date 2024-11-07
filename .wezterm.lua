@@ -18,7 +18,7 @@ config.window_padding = {
 }
 
 -- Workaround for issue with hyprland
-config.enabe_wayland = false
+config.enable_wayland = false
 
 -- Windows specific overrides
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
