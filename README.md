@@ -6,6 +6,31 @@ This basically just exists for my own sanity, but if you see anything useful
 feel free to steal it. I stole most of this stuff. Also, if you see anything
 obviously or obscurely stupid, please let me know. Use at your own risk.
 
+## Installation
+
+### Before Installing
+
+Make sure your environment at least has a POSIX compatible shell and git.
+
+### Scripted Install
+
+You can run the bootstrap script using the following command, but beware, it
+will overwrite local versions of the dotfiles so back these up beforehand.
+
+```bash
+curl -s https://raw.githubusercontent.com/evan-wise/dots/main/.local/bin/bootstrap.sh | bash
+```
+
+After creating the local copy of the repo with the bootstrap script, you can
+interact with it using the `.git` alias. This setup using an alias and a bare
+repo with a work tree in a different location is based on
+(this article)[https://www.atlassian.com/git/tutorials/dotfiles].
+
+To attempt to install system packages you can now run the install script by
+typing `sudo install.sh`. This script requires elevated permissions to install
+packages using your operating system's package manager. It only supports Arch
+and Ubuntu currently.
+
 ## Contents
 
 The files and directories to be copied to the user's home directory are stored
@@ -88,7 +113,6 @@ the setup scripts to do this automatically.
 
 ## TODO
 
-- Come up with some scheme for automatic updates.
 - Allow system specific overrides for environment variables.
 
 <!-- References -->
@@ -113,3 +137,4 @@ the setup scripts to do this automatically.
 [copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [nvim-surround]: https://github.com/kylechui/nvim-surround
 [Comments.nvim]: https://github.com/numToStr/Comment.nvim
+

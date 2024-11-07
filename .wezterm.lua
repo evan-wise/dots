@@ -17,6 +17,9 @@ config.window_padding = {
   bottom = 4,
 }
 
+-- Workaround for issue with hyprland
+config.enabe_wayland = false
+
 -- Windows specific overrides
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = {"wsl", "~"}

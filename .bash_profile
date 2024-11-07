@@ -17,6 +17,11 @@ fi
 # Add local bin folders to the PATH.
 export PATH=$PATH:$HOME/bin:$HOME/.local/bin
 
+# Set homebrew environment variables (if applicable).
+if [ -d /home/linuxbrew/.linuxbrew ]; then
+  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+fi
+
 ################################################################################
 # Prompt
 ################################################################################
