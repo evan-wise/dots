@@ -24,7 +24,7 @@ curl -s https://raw.githubusercontent.com/evan-wise/dots/main/.local/bin/bootstr
 After creating the local copy of the repo with the bootstrap script, you can
 interact with it using the `.git` alias. This setup using an alias and a bare
 repo with a work tree in a different location is based on
-(this article)[https://www.atlassian.com/git/tutorials/dotfiles].
+[this article](https://www.atlassian.com/git/tutorials/dotfiles).
 
 To attempt to install system packages you can now run the install script by
 typing `sudo install.sh`. This script requires elevated permissions to install
