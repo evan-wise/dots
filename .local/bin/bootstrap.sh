@@ -6,7 +6,7 @@ set -o errexit
 set -o nounset
 
 git clone --bare https://github.com/evan-wise/dots $HOME/.local/state/dots/.git
-git --git-dir=$HOME/.local/state/dots --work-tree=$HOME checkout -f
+git --git-dir=$HOME/.local/state/dots/.git --work-tree=$HOME checkout -f
 
 # Ask the user if they want to install system packages
 read -p "Do you want to install system packages? [y/N] " install_system_packages

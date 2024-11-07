@@ -98,7 +98,7 @@ memo() {
 
 # Special git alias for managing dotfiles.
 ########################################
-alias .git='/usr/bin/git --git-dir=$HOME/.local/state/dots --work-tree=$HOME'
+alias .git='/usr/bin/git --git-dir=$HOME/.local/state/dots/.git --work-tree=$HOME'
 
 # Setting helpful flags
 ########################################
