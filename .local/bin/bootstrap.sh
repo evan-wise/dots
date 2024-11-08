@@ -16,3 +16,4 @@ if [[ $install_system_packages =~ ^[Yy]$ ]]; then
 fi
 
 [[ -f $HOME/.bash_profile ]] && . $HOME/.bash_profile
+

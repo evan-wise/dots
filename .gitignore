@@ -1,1 +1,32 @@
-*
+.ICEauthority
+.Xauthority
+.local/state/
+.local/share/
+.local/lib/
+.bash_history*
+.ssh/
+.gnupg/
+.cache/
+.npm/
+.tmux/
+.llama/
+# Desktop
+Documents/
+Downloads/
+Music/
+Pictures/
+Videos/
+# Dropbox
+Dropbox/
+.dropbox/
+.dropbox-dist/
+# Rust
+.cargo/
+.rustup/
+# Haxe
+.haxelib
+haxelib/
+# Custom
+src/
+backup/
+.bash_memos
