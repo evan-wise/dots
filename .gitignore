@@ -1,9 +1,7 @@
 .ICEauthority
 .Xauthority
-.local/state/
-.local/share/
-.local/lib/
 .bash_history*
+.local/
 .ssh/
 .gnupg/
 .cache/

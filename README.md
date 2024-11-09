@@ -18,7 +18,7 @@ You can run the bootstrap script using the following command, but beware, it
 will overwrite local versions of the dotfiles so back these up beforehand.
 
 ```bash
-curl -s https://raw.githubusercontent.com/evan-wise/dots/main/.local/bin/bootstrap.sh | bash
+curl -s https://raw.githubusercontent.com/evan-wise/dots/main/bin/bootstrap.sh | bash
 ```
 
 After creating the local copy of the repo with the bootstrap script, you can
