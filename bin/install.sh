@@ -24,7 +24,7 @@ arch_packages="git tmux neovim nodejs gcc pyright ripgrep ttf-fira-code ttf-nerd
 ubuntu_packages="git tmux neovim nodejs npm gcc pyright ripgrep fonts-fira-code"
 ubuntu_brew_packages="lua-language-server"
 npm_packages="typescript-language-server typescript prettier @astrojs/language-server"
-gui_packages="hyprland hyprpaper hyprlock waybar wofi dunst wezterm"
+gui_packages="hyprland xdg-desktop-portal-hyprland qt5-wayland qt6-wayland hyprpaper hyprlock waybar wofi dunst wezterm"
 
 # Main Body
 ################################################################################
