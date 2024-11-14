@@ -54,15 +54,22 @@ system_packages=""
 brew_packages=""
 aur_packages=""
 npm_packages="typescript-language-server typescript prettier @astrojs/language-server"
-gui_packages="hyprland xdg-desktop-portal-hyprland qt5-wayland qt6-wayland hyprpaper hyprlock waybar wofi dunst wezterm"
 
 if command -v pacman &> /dev/null; then
   install_cmd="pacman -S --noconfirm"
   system_packages="base-devel git tmux neovim nodejs gcc pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server"
-  aur_packages="hyprpolkitagent-git"
+  aur_packages=""
+  if [ "$install_gui" = "true" ]; then
+    aur_packages=$aur_packages" hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git"
+    system_packages=$system_packages" hyprland qt5-wayland qt6-wayland hyprlock waybar wofi dunst wezterm"
+  fi
 elif command -v apt &> /dev/null; then
+  if [ "$install_gui" = "true" ]; then
+    echoerr "GUI installation is not supported on apt based systems."
+    exit 1
+  fi
   install_cmd="apt install -y"
-  system_packages="build-essential git tmux neovim nodejs npm gcc pyright ripgrep fonts-fira-code"
+  system_packages="build-essential git tmux neovim nodejs npm gcc pyright ripgrep"
   brew_packages="lua-language-server"
 else
   echo "Unsupported package manager."
