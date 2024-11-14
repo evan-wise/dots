@@ -20,11 +20,6 @@ if [ "$user_name" = "root" ]; then
   user_name=$SUDO_USER
 fi
 home_dir=$(getent passwd "$user_name" | cut -d: -f6)
-arch_packages="git tmux neovim nodejs gcc pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server"
-ubuntu_packages="git tmux neovim nodejs npm gcc pyright ripgrep fonts-fira-code"
-ubuntu_brew_packages="lua-language-server"
-npm_packages="typescript-language-server typescript prettier @astrojs/language-server"
-gui_packages="hyprland xdg-desktop-portal-hyprland qt5-wayland qt6-wayland hyprpaper hyprlock waybar wofi dunst wezterm"
 
 # Main Body
 ################################################################################
@@ -57,20 +52,21 @@ fi
 install_cmd=""
 system_packages=""
 brew_packages=""
+aur_packages=""
+npm_packages="typescript-language-server typescript prettier @astrojs/language-server"
+gui_packages="hyprland xdg-desktop-portal-hyprland qt5-wayland qt6-wayland hyprpaper hyprlock waybar wofi dunst wezterm"
 
 if command -v pacman &> /dev/null; then
   install_cmd="pacman -S --noconfirm"
-  system_packages=$arch_packages
+  system_packages="base-devel git tmux neovim nodejs gcc pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server"
+  aur_packages="hyprpolkitagent-git"
 elif command -v apt &> /dev/null; then
   install_cmd="apt install -y"
-  system_packages=$ubuntu_packages
-  brew_packages=$ubuntu_brew_packages
+  system_packages="build-essential git tmux neovim nodejs npm gcc pyright ripgrep fonts-fira-code"
+  brew_packages="lua-language-server"
 else
-  echo "Unsupported package manager. Please install the following packages manually:"
-  for pkg in $arch_packages
-  do
-    echo " * $pkg"
-  done
+  echo "Unsupported package manager."
+  exit 1
 fi
 
 echo "Installing system packages..."
@@ -81,21 +77,28 @@ if [ "$install_gui" = "true" ]; then
   $install_cmd $gui_packages
 fi
 
-if [ ! -z "$brew_packages" ]; then
-  if [ ! -f "/home/linuxbrew/.linuxbrew/bin/brew" ]; then
-    echo "Please install Homebrew manually."
+
+if [ ! -z "$aur_packages" ]; then
+  if ! command -v paru &> /dev/null; then
+    echoerr "Please install paru manually."
     exit 1
   fi
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
-  sudo -u $user_name /home/linuxbrew/.linuxbrew/bin/brew install $brew_packages
+  echo "Installing AUR packages..."
+  sudo -u $user_name paru -S --noconfirm $aur_packages
+fi
+
+if [ ! -z "$brew_packages" ]; then
+  if ! command -v brew &> /dev/null; then
+    echoerr "Please install brew manually."
+    exit 1
+  fi
+  echo "Installing brew packages..."
+  sudo -u $user_name brew install $brew_packages
 fi
 
 if ! command -v npm &> /dev/null; then
-  echo "Please install the following npm packages manually:"
-  for pkg in $npm_packages
-  do
-    echo " * $pkg"
-  done
+  echoerr "Please install npm."
+  exit 1
 fi
 echo "Installing npm packages..."
 npm install -g $npm_packages
