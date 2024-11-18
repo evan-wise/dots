@@ -61,7 +61,7 @@ if command -v pacman &> /dev/null; then
   aur_packages=""
   if [ "$install_gui" = "true" ]; then
     aur_packages=$aur_packages" hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git"
-    system_packages=$system_packages" hyprland qt5-wayland qt6-wayland hyprlock waybar wofi dunst wezterm"
+    system_packages=$system_packages" hyprland qt5-wayland qt6-wayland hyprlock hypridle brightnessctl waybar wofi dunst wezterm"
   fi
 elif command -v apt &> /dev/null; then
   if [ "$install_gui" = "true" ]; then
