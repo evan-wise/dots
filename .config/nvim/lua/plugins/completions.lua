@@ -109,6 +109,11 @@ return {
       require('copilot').setup({
         suggestion = { auto_trigger = true },
         panel = { enabled = false },
+        filetypes = {
+          javascript = true,
+          typescript = true,
+          ["*"] = false,
+        },
       })
     end,
   },
