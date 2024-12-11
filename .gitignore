@@ -28,3 +28,6 @@ haxelib/
 src/
 backup/
 .bash_memos
+# Neovim
+.netrwhist
+lazy-lock.json
