@@ -1,11 +1,11 @@
 return {
   {
     'L3MON4D3/LuaSnip',
-    version = '*',
+    version = false,
   },
   {
     'hrsh7th/nvim-cmp',
-    version = '*',
+    version = false,
     Event = 'InsertEnter',
     config = function()
       local cmp = require('cmp')
@@ -54,7 +54,7 @@ return {
   },
   {
     'neovim/nvim-lspconfig',
-    version = '*',
+    version = false,
     dependencies = { 'hrsh7th/cmp-nvim-lsp' },
     config = function()
       local lspconfig = require('lspconfig')
