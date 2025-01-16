@@ -1,12 +1,12 @@
 /* colors */
 
-@define-color bg-color #24283b;
-@define-color border-color #414868;
-@define-color text-color #c0caf5;
-@define-color alt-text-color #565f89;
-@define-color success-color #73daca;
-@define-color warning-color #e0af68;
-@define-color danger-color #f7768e;
+@define-color bg-color #32302f;
+@define-color border-color #504945;
+@define-color text-color #ebdbb2;
+@define-color alt-text-color #a89984;
+@define-color success-color #689d6a;
+@define-color warning-color #d79921;
+@define-color danger-color #cc241d;
 
 /* animations */
 

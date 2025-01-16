@@ -12,18 +12,18 @@
     padding = 8
     horizontal_padding = 8
     frame_width = 2
-    frame_color = "#414868"
-    background = "#24283b"
+    frame_color = "#504945"
+    background = "#32302f"
     transparency = 10
     format = "<b>%s</b> <i>%a</i>\n%b"
 
 [urgency_low]
-    foreground = "#565f89"
+    foreground = "#a89984"
 
 [urgency_normal]
-    foreground = "#c0caf5"
+    foreground = "#ebdbb2"
 
 [urgency_critical]
-    foreground = "#ff5555"
-    frame_color = "#ff5555"
+    foreground = "#fbf1c7"
+    frame_color = "#fbf1c7"
 
