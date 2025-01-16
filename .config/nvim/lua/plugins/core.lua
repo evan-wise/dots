@@ -1,12 +1,31 @@
 return {
   {
-    'folke/tokyonight.nvim',
-    version = '*',
+    'https://github.com/ellisonleao/gruvbox.nvim',
+    version = false,
     lazy = false,
     config = function()
+      require("gruvbox").setup({
+        terminal_colors = true, -- add neovim terminal colors
+        undercurl = true,
+        underline = true,
+        bold = true,
+        italic = {
+          strings = true,
+          emphasis = true,
+          comments = true,
+          operators = false,
+          folds = true,
+        },
+        strikethrough = true,
+        invert_selection = false,
+        inverse = true, -- invert background for search, diffs, statuslines and errors
+        contrast = "soft", -- can be "hard", "soft" or empty string
+        dim_inactive = false,
+        transparent_mode = false,
+      })
       vim.opt.termguicolors = true
       vim.opt.background = 'dark'
-      vim.cmd.colorscheme('tokyonight-storm')
+      vim.cmd("colorscheme gruvbox")
     end
   },
   {
