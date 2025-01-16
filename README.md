@@ -8,36 +8,36 @@ obviously or obscurely stupid, please let me know. Use at your own risk.
 
 ## Installation
 
-### Before Installing
-
-Make sure your environment at least has a POSIX compatible shell and git.
+Before installing, make sure your environment at least has a POSIX compatible
+shell and git.
 
 ### Scripted Install
 
 You can run the bootstrap script using the following command, but beware, it
-will overwrite local versions of the dotfiles so back these up beforehand.
+will overwrite local versions of your dotfiles so back these up beforehand.
 
 ```bash
 curl -s https://raw.githubusercontent.com/evan-wise/dots/main/bin/bootstrap.sh | bash
 ```
 
 After creating the local copy of the repo with the bootstrap script, you can
-interact with it using the `.git` alias. This setup using an alias and a bare
-repo with a work tree in a different location is based on
-[this article](https://www.atlassian.com/git/tutorials/dotfiles).
+interact with it using the `.git` alias.
 
 To attempt to install system packages you can now run the install script by
 typing `sudo install.sh`. This script requires elevated permissions to install
 packages using your operating system's package manager. It only supports Arch
 and Ubuntu currently.
 
+### Other Operation Systems
+
+I haven't tested this on any other operating systems. Have fun!
+
 ## Contents
 
-The files and directories to be copied to the user's home directory are stored
-in the `home` directory. Copying files and directories is accomplished using
-`rsync`. This provides a simple way to manage both the dotfiles and standard
-working directories without having to directly update the setup script every
-time a new file is added.
+The repo stores the exact layout of the dotfiles which will go in the user's
+`$HOME` directory. This greatly simplifies management and allows new files to
+be added seamlessly. This setup using an alias and a bare repo with a work tree
+in a different location is based on [this article](https://www.atlassian.com/git/tutorials/dotfiles).
 
 ### Dotfiles
 
@@ -84,27 +84,9 @@ time a new file is added.
 
 ### Other
 
-- `setup.sh`: bash setup script for this repository.
-
 - `LICENSE.txt`: License for this repository.
 
 - `README.md`: this file.
-
-## Installation
-
-I suspect you can guess the first step, clone the github repository.
-
-    git clone https://github.com/evan-wise/dots
-
-### Linux
-
-On GNU/Linux systems, you should be able to run the included script, `setup.sh`.
-It accepts a command line option `-i` which will cause it to attempt to install
-system dependencies.
-
-### Other Operation Systems
-
-I haven't tested this on any other operating systems.
 
 ## Removal
 
@@ -114,6 +96,8 @@ the setup scripts to do this automatically.
 ## TODO
 
 - Allow system specific overrides for environment variables.
+- Bring file manifest in README up to date.
+- Consider scripts to manage theming.
 
 <!-- References -->
 
