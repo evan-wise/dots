@@ -61,7 +61,6 @@ in a different location is based on [this article](https://www.atlassian.com/git
 - [`tpm`][tpm]: plugin manager for tmux, manages other plugins below.
 - [`tmux-sensible`][tmux-sensible]: sensible defaults for tmux.
 - [`tmux-resurrect`][tmux-resurrect]: allows saving and restoring tmux sessions.
-- [`tmux-autoreload`][tmux-autoreload]: automatically reloads `.tmux.conf`.
 
 ### NeoVim plugins
 
@@ -104,7 +103,6 @@ the setup scripts to do this automatically.
 [tpm]: https://github.com/tmux-plugins/tpm
 [tmux-sensible]: https://github.com/tmux-plugins/tmux-sensible
 [tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
-[tmux-autoreload]: https://github.com/b0o/tmux-autoreload
 [lazy.nvim]: https://github.com/folke/lazy.nvim
 [lazydev.nvim]: https://github.com/folke/lazydev.nvim
 [tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
