@@ -77,7 +77,7 @@ return {
       telescope.setup({
         pickers = {
           find_files = {
-            find_command = { 'rg', '--files', '--hidden', '--follow', '--glob', '!.git' },
+            find_command = { 'rg', '--files', '--ignore-file', '.gitignore', '--hidden', '--glob', '!.git' },
           },
         },
         extensions = {

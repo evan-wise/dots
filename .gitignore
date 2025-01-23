@@ -1,3 +1,4 @@
+# Misc
 .ICEauthority
 .Xauthority
 .bash_history*
@@ -6,8 +7,16 @@
 .gnupg/
 .cache/
 .npm/
+.mono/
 .tmux/
 .llama/
+.cursor*
+.mozilla/
+.thunderbird/
+.dwarffortress/
+# Neovim
+.netrwhist
+lazy-lock.json
 # Desktop
 Documents/
 Downloads/
@@ -28,6 +37,3 @@ haxelib/
 src/
 backup/
 .bash_memos
-# Neovim
-.netrwhist
-lazy-lock.json
