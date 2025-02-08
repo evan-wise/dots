@@ -60,7 +60,7 @@ if command -v pacman &> /dev/null; then
   system_packages="base-devel git tmux neovim nodejs gcc pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server"
   aur_packages=""
   if [ "$install_gui" = "true" ]; then
-    aur_packages=$aur_packages" hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git"
+    aur_packages=$aur_packages" hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot"
     system_packages=$system_packages" qt5-wayland qt6-wayland brightnessctl waybar wofi dunst"
   fi
 elif command -v apt &> /dev/null; then
