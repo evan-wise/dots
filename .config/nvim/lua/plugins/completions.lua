@@ -57,7 +57,6 @@ return {
     version = false,
     dependencies = { 'hrsh7th/cmp-nvim-lsp' },
     config = function()
-      local lspconfig = require('lspconfig')
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
       local on_attach = function(_, bufnr)
         local bufopts = { noremap = true, silent = true, buffer = bufnr }
@@ -73,32 +72,37 @@ return {
         vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, bufopts)
       end
 
-      lspconfig.ts_ls.setup({
+      vim.lsp.enable('ts_ls')
+      vim.lsp.config('ts_ls', {
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      lspconfig.pyright.setup({
+      vim.lsp.enable('pyright')
+      vim.lsp.config('pyright', {
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      lspconfig.lua_ls.setup({
+      vim.lsp.enable('lua_ls')
+      vim.lsp.config('lua_ls', {
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      lspconfig.astro.setup({
+      vim.lsp.enable('astro')
+      vim.lsp.config('astro', {
         capabilities = capabilities,
         on_attach = on_attach,
       })
 
-      lspconfig.rust_analyzer.setup({
+      vim.lsp.enable('rust_analyzer')
+      vim.lsp.config('rust_analyzer', {
         capabilities = capabilities,
         on_attach = on_attach,
       })
     end,
-    ft = { 'typescript', 'javasript', 'python', 'lua', 'astro', 'rust' },
+    ft = { 'typescript', 'javascript', 'python', 'lua', 'astro', 'rust' },
   },
   {
     'zbirenbaum/copilot.lua',
@@ -112,6 +116,7 @@ return {
         filetypes = {
           javascript = true,
           typescript = true,
+          css = true,
           ["*"] = false,
         },
       })
