@@ -111,4 +111,12 @@ return {
       require('Comment').setup()
     end,
   },
+  {
+    'brenoprata10/nvim-highlight-colors',
+    version = '*',
+    event = 'VeryLazy',
+    config = function()
+      require('nvim-highlight-colors').setup({})
+    end,
+  },
 }
