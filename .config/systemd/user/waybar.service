@@ -1,0 +1,18 @@
+[Unit]
+Description=Highly customizable Wayland bar for Sway and wlroots based compositors
+Documentation=https://github.com/Alexays/Waybar/wiki
+PartOf=graphical-session.target
+After=graphical-session.target
+# Wait for the portal to be ready
+After=xdg-desktop-portal.service
+After=xdg-desktop-portal-hyprland.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/waybar
+Restart=on-failure
+RestartSec=1
+TimeoutStopSec=10
+
+[Install]
+WantedBy=hyprland-session.target
