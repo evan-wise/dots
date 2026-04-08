@@ -4,31 +4,38 @@
 ################################################################################
 # Shell settings
 ################################################################################
-set -o vi
+
+bindkey -v # vi mode
+
+# Edit command line with Ctrl+x,e
+autoload edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
 
 ################################################################################
 # Variables
 ################################################################################
 
 # Use neovim as the default editor.
-if [ -e /usr/bin/nvim ] ; then
-    VISUAL=/usr/bin/nvim; export VISUAL
-    EDITOR=/usr/bin/nvim; export EDITOR
+if command -v nvim >/dev/null 2>&1; then
+  VISUAL=$(which nvim); export VISUAL
+  EDITOR=$(which nvim); export EDITOR
 else
-    VISUAL=/usr/bin/vi; export VISUAL
-    EDITOR=/usr/bin/vi; export EDITOR
+  VISUAL=$(which vi); export VISUAL
+  EDITOR=$(which vi); export EDITOR
 fi
 
-# Add local bin folders to the PATH.
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
+# Add homebrew installs to path, if found.
+[[ -d /opt/homebrew/bin ]] && PATH="/opt/homebrew/bin:$PATH"
 
-# Set homebrew environment variables (if applicable).
-if [ -d /home/linuxbrew/.linuxbrew ]; then
-  eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
-fi
+# Add dotnet tools to path, if found.
+[[ -d "$HOME/.dotnet/tools" ]] && PATH="$PATH:$HOME/.dotnet/tools"
+
+# Prepend user scripts and local installs.
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # Load extra system specific variables (not in source control)
-[[ -f "$HOME/.bash_variables" ]] && . "$HOME/.bash_variables"
+[[ -f "$HOME/.zvariables" ]] && . "$HOME/.zvariables"
 
 ################################################################################
 # Functions
@@ -44,7 +51,7 @@ cdl() {
     cd "$@" && ls
 }
 
-# The secret sauce, appends aliases to the end of ~/.bash_aliases
+# The secret sauce, appends aliases to the end of ~/.zaliases
 #   Note: Ideally, you should comb through these periodically and add
 #   explanation where it seems useful.
 # $1 - The alias
@@ -52,13 +59,13 @@ cdl() {
 # $3 - (Optional) A comment.
 idiom() {
     if [ -z "$1" ]; then
-        echoerr "Usage:\n\"idiom foo bar\" adds the line \"alias foo='bar'\" to ~/.bash_aliases.\n\"idiom foo bar baz\" adds the line \"alias foo='bar' # baz\" to ~/.bash_aliases." 
+        echoerr "Usage:\n\"idiom foo bar\" adds the line \"alias foo='bar'\" to ~/.zaliases.\n\"idiom foo bar baz\" adds the line \"alias foo='bar' # baz\" to ~/.zaliases." 
         return 1
     else
         _idiom_alias="$1"
     fi
     if [ -z "$2" ]; then
-        echoerr "Usage:\n\"idiom foo bar\" adds the line \"alias foo='bar'\" to ~/.bash_aliases.\n\"idiom foo bar baz\" adds the line \"alias foo='bar' # baz\" to ~/.bash_aliases." 
+        echoerr "Usage:\n\"idiom foo bar\" adds the line \"alias foo='bar'\" to ~/.zaliases.\n\"idiom foo bar baz\" adds the line \"alias foo='bar' # baz\" to ~/.zaliases." 
         return 1
     else
         _idiom_subst="$2"
@@ -67,12 +74,12 @@ idiom() {
         _idiom_comment="$3"
     fi
     if [ ! -z "$4" ]; then
-        echoerr "Usage:\n\"idiom foo bar\" adds the line \"alias foo='bar'\" to ~/.bash_aliases.\n\"idiom foo bar baz\" adds the line \"alias foo='bar' # baz\" to ~/.bash_aliases."
+        echoerr "Usage:\n\"idiom foo bar\" adds the line \"alias foo='bar'\" to ~/.zaliases.\n\"idiom foo bar baz\" adds the line \"alias foo='bar' # baz\" to ~/.zaliases."
         return 1
     fi
 
-    if [ ! -f "$HOME/.bash_aliases" ]; then
-        echo '# This file is maintained by the idiom function in ~/.bashrc.' > "$HOME/.bash_aliases"
+    if [ ! -f "$HOME/.zaliases" ]; then
+        echo '# This file is maintained by the idiom function in ~/.zshrc.' > "$HOME/.zaliases"
     fi
 
     if [ -z "$_idiom_comment" ]; then
@@ -81,7 +88,7 @@ idiom() {
         _idiom_comment=" # ""$_idiom_comment"" - ""$(date)"
     fi
 
-    echo "alias ""$_idiom_alias""='""$_idiom_subst""'""$_idiom_comment" >> "$HOME/.bash_aliases" 
+    echo "alias ""$_idiom_alias""='""$_idiom_subst""'""$_idiom_comment" >> "$HOME/.zaliases" 
 
     return 0
 }
@@ -108,17 +115,17 @@ memo() {
         return 1
     fi
 
-    if [ ! -f "$HOME/.bash_memos" ]; then
-        echo '# This file is maintained by the memo function in ~/.bashrc.' > "$HOME/.bash_memos"
+    if [ ! -f "$HOME/.zmemos" ]; then
+        echo '# This file is maintained by the memo function in ~/.zshrc.' > "$HOME/.zmemos"
     fi
 
-    echo "$_memo_command""$_memo_comment" >> "$HOME/.bash_memos"
+    echo "$_memo_command""$_memo_comment" >> "$HOME/.zmemos"
 
     return 0
 }
 
 # Load extra system specific functions (not in source control)
-[[ -f "$HOME/.bash_functions" ]] && . "$HOME/.bash_functions"
+[[ -f "$HOME/.zfunctions" ]] && . "$HOME/.zfunctions"
 
 ################################################################################
 # Aliases
@@ -128,7 +135,7 @@ memo() {
 ########################################
 alias .git='/usr/bin/git --git-dir=$HOME/.local/state/dots/.git --work-tree=$HOME'
 
-# Setting helpful flags
+# Setting helpful default flags
 ########################################
 
 # Use vim key binding for info.
@@ -138,7 +145,9 @@ alias grep='grep --color=auto'
 
 # Workaround for password store autodetection not working right with
 # gnome-keyring under Hyprland.
-alias vivaldi='vivaldi --password-store=gnome-libsecret'
+if command -v vivaldi >/dev/null 2>&1; then
+  alias vivaldi='vivaldi --password-store=gnome-libsecret'
+fi
 
 # Keystroke savers
 ########################################
@@ -160,14 +169,19 @@ alias :q='echo "Exit? (Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * 
 # Idioms (should be last)
 ########################################
 
-[[ -f "$HOME/.bash_aliases" ]] && . "$HOME/.bash_aliases"
+[[ -f "$HOME/.zaliases" ]] && . "$HOME/.zaliases"
 
 ################################################################################
 # Tool Setup
 ################################################################################
 
 # fnm
-eval "$(fnm env --use-on-cd --shell bash)"
+eval "$(fnm env --use-on-cd --shell zsh)"
+
+# gcloud
+export CLOUDSDK_PYTHON=$(which python3)
+[[ -f "$HOME/src/google-cloud-sdk/path.zsh.inc" ]] && . "$HOME/src/google-cloud-sdk/path.zsh.inc"
+[[ -f "$HOME/src/google-cloud-sdk/completion.zsh.inc" ]] && . "$HOME/src/google-cloud-sdk/completion.zsh.inc"
 
 ################################################################################
 # Prompt
@@ -175,28 +189,15 @@ eval "$(fnm env --use-on-cd --shell bash)"
 
 BRANCH_ICON=$'\xef\x84\xa6'
 
-_prompt_command() {
+_prompt_precmd() {
   local git_part=""
   local branch
   branch=$(git symbolic-ref --short HEAD 2>/dev/null) || branch=$(git rev-parse --short HEAD 2>/dev/null)
   if [ -n "$branch" ]; then
-    git_part=" \033[33m${BRANCH_ICON} ${branch}\033[0m"
+    git_part=" %F{yellow}${BRANCH_ICON} ${branch}%f"
   fi
-  PS1="\033[32m\u@\h\033[0m \033[34m\w\033[0m${git_part} \033[37m❯\033[0m "
+  PROMPT="%F{green}%n@%m%f %F{blue}%~%f${git_part} %F{white}❯%f "
 }
 
-PROMPT_COMMAND=(_prompt_command)
-
-case ${TERM} in
-  Eterm*|alacritty*|aterm*|foot*|gnome*|konsole*|kterm*|putty*|rxvt*|tmux*|xterm*)
-    PROMPT_COMMAND+=('printf "\033]0;%s@%s:%s\007" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"')
-    ;;
-  screen*)
-    PROMPT_COMMAND+=('printf "\033_%s@%s:%s\033\\" "${USER}" "${HOSTNAME%%.*}" "${PWD/#$HOME/\~}"')
-    ;;
-esac
-
-if [[ -r /usr/share/bash-completion/bash_completion ]]; then
-  . /usr/share/bash-completion/bash_completion
-fi
-
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _prompt_precmd
