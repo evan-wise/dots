@@ -94,7 +94,6 @@ the setup scripts to do this automatically.
 
 ## TODO
 
-- Allow system specific overrides for environment variables.
 - Bring file manifest in README up to date.
 - Consider scripts to manage theming.
 
