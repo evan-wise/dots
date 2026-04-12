@@ -1,0 +1,17 @@
+[Unit]
+Description=Dropbox cloud storage daemon
+Documentation=https://www.dropbox.com/
+PartOf=graphical-session.target
+After=graphical-session.target
+After=xdg-desktop-portal.service
+After=xdg-desktop-portal-hyprland.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/dropbox
+Restart=on-failure
+RestartSec=1
+TimeoutStopSec=10
+
+[Install]
+WantedBy=hyprland-session.target

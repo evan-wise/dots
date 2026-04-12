@@ -1,0 +1,17 @@
+[Unit]
+Description=Hyprland idle daemon
+Documentation=https://wiki.hyprland.org/Hypr-Ecosystem/hypridle/
+PartOf=graphical-session.target
+After=graphical-session.target
+After=xdg-desktop-portal.service
+After=xdg-desktop-portal-hyprland.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/hypridle
+Restart=on-failure
+RestartSec=1
+TimeoutStopSec=10
+
+[Install]
+WantedBy=hyprland-session.target
