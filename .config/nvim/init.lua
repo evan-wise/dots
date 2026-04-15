@@ -43,6 +43,11 @@ vim.keymap.set('n', 'QQ', 'gww', { silent = true })
 vim.keymap.set('n', '[b', ':bp<CR>', { silent = true })
 vim.keymap.set('n', ']b', ':bn<CR>', { silent = true })
 
+-- Copy file to clipboard and variations.
+vim.keymap.set('n', '<leader>cr', ':let @+ = expand(\'%\')<CR>')
+vim.keymap.set('n', '<leader>cf', ':let @+ = expand(\'%:t\')<CR>')
+vim.keymap.set('n', '<leader>ca', ':let @+ = expand(\'%:p\')<CR>')
+
 -- Commands
 
 -- Format file with prettier
