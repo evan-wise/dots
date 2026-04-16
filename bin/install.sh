@@ -12,27 +12,13 @@ echoerr() {
     echo "$@" 1>&2
 }
 
-# Variables
-################################################################################
-
-user_name=$(whoami)
-if [ "$user_name" = "root" ]; then
-  user_name=$SUDO_USER
-fi
-home_dir=$(getent passwd "$user_name" | cut -d: -f6)
-
 # Main Body
 ################################################################################
 
-# Handle --gui option which installs hyprland and other gui programs.
-install_gui=false
 while [ $# -gt 0 ]; do
     case "$1" in
-        -g|--gui)
-            install_gui=true
-            ;;
         -h|--help)
-            echo "Usage: $0 [--gui] [-g]"
+            echo "Usage: $0"
             exit 0
             ;;
         *)
@@ -43,64 +29,35 @@ while [ $# -gt 0 ]; do
     shift
 done
 
-
-if [ $EUID -ne 0 ]; then
-  echoerr "This script must be run with administrative privileges." >&2
-  exit 1
-fi
-
-install_cmd=""
-system_packages=""
-brew_packages=""
-aur_packages=""
-npm_packages="typescript-language-server typescript prettier @astrojs/language-server"
-
 if command -v pacman &> /dev/null; then
-  install_cmd="pacman -S --noconfirm"
-  system_packages="base-devel git tmux neovim nodejs gcc pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server"
-  aur_packages=""
-  if [ "$install_gui" = "true" ]; then
-    aur_packages=$aur_packages" hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot"
-    system_packages=$system_packages" qt5-wayland qt6-wayland brightnessctl waybar wofi dunst"
-  fi
-elif command -v apt &> /dev/null; then
-  if [ "$install_gui" = "true" ]; then
-    echoerr "GUI installation is not supported on apt based systems."
-    exit 1
-  fi
-  install_cmd="apt install -y"
-  system_packages="build-essential git tmux neovim nodejs npm gcc pyright ripgrep"
-  brew_packages="lua-language-server"
-else
-  echo "Unsupported package manager."
-  exit 1
-fi
-
-echo "Installing system packages..."
-$install_cmd $system_packages
-
-if [ "$install_gui" = "true" ]; then
-  echo "Installing gui packages..."
-  $install_cmd $gui_packages
-fi
-
-
-if [ ! -z "$aur_packages" ]; then
+  # Install base-devel, git and rust to bootstrap paru
   if ! command -v paru &> /dev/null; then
-    echoerr "Please install paru manually."
-    exit 1
+    echo "Bootstrapping paru..."
+    sudo pacman -Sy --noconfirm base-devel git rustup
+    rustup default stable
+    mkdir -p src
+    pushd src
+    git clone https://aur.archlinux.org/paru.git
+    pushd paru
+    makepkg -si
+    popd
+    popd
   fi
-  echo "Installing AUR packages..."
-  sudo -u $user_name paru -S --noconfirm $aur_packages
-fi
-
-if [ ! -z "$brew_packages" ]; then
+  echo "Installing packages..."
+  paru -Sy --noconfirm base-devel git tmux neovim fnm gcc rustup pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst
+  fnm install --lts
+elif command -v apt &> /dev/null; then
+  echo "Installing packages..."
+  sudo apt install -y build-essential git tmux neovim nodejs npm gcc rustup pyright ripgrep
   if ! command -v brew &> /dev/null; then
     echoerr "Please install brew manually."
     exit 1
   fi
   echo "Installing brew packages..."
-  sudo -u $user_name brew install $brew_packages
+  brew install lua-language-server
+else
+  echoerr "Unsupported package manager."
+  exit 1
 fi
 
 if ! command -v npm &> /dev/null; then
@@ -108,12 +65,10 @@ if ! command -v npm &> /dev/null; then
   exit 1
 fi
 echo "Installing npm packages..."
-npm install -g $npm_packages
+npm install -g typescript-language-server typescript prettier @astrojs/language-server
 
-if [ ! -d "$home_dir"/.tmux/plugins/tpm ]; then
+if [ ! -d "$HOME"/.tmux/plugins/tpm ]; then
   echo "Cloning tpm..."
-  git clone https://github.com/tmux-plugins/tpm "$home_dir"/.tmux/plugins/tpm
-  # In case we are running from sudo
-  chown -R $user_name:$user_name "$home_dir"/.tmux/plugins/tpm
+  git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
 fi
 
