@@ -161,6 +161,9 @@ alias lg='ls -lAsh | grep'
 # Jump up a directory.
 alias ..='cd ..'
 
+# Source .zshrc
+alias .~='. ~/.zshrc'
+
 # Vim habits die hard...
 alias vim='nvim'
 alias :e='nvim'

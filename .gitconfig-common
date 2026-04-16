@@ -1,0 +1,17 @@
+[push]
+	autoSetupRemote = true
+[pull]
+	rebase = true
+[rerere]
+  enabled = true
+[alias]
+  # Shows most frequently changed files in the last year.
+  churn = !git log --format=format: --name-only --since='1 year ago' | grep -v '^$' | sort | uniq -c | sort -nr | head -20
+  # Shows contributors ranked by contribution count.
+  busfactor = shortlog -sn --no-merges
+  # Shows files which often contain bugs.
+  bugs = !git log -i --grep=fix --grep=bug --grep=broken --name-only --format= | sort | uniq -c | sort -nr | head -20
+  # Shows commits per month to show trends in project velocity.
+  velocity = !git log --format="%ad" --date=format:"%Y-%m" | sort | uniq -c
+  # Shows "emergency" commits (hotfixes, reverts, etc.), these should be rare!
+  firefight = !git log --oneline --since='1 year ago' | grep -iE 'revert|hotfix|emergency|rollback'

@@ -152,6 +152,9 @@ alias lg='ls -lAsh | grep'
 # Jump up a directory.
 alias ..='cd ..'
 
+# Source .bashrc
+alias .~='. ~/.bashrc'
+
 # Vim habits die hard...
 alias vim='nvim'
 alias :e='nvim'
