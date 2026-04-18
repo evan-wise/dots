@@ -30,6 +30,7 @@ while [ $# -gt 0 ]; do
 done
 
 if command -v pacman &> /dev/null; then
+  # If installing in arch, this is a dev laptop
   # Install base-devel, git and rust to bootstrap paru
   if ! command -v paru &> /dev/null; then
     echo "Bootstrapping paru..."
@@ -44,9 +45,16 @@ if command -v pacman &> /dev/null; then
     popd
   fi
   echo "Installing packages..."
-  paru -Sy --noconfirm base-devel git tmux neovim fnm gcc rustup pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst
+  paru -Sy --noconfirm base-devel git tmux neovim fnm gcc rustup pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst vivaldi gnome-keyring libsecret dropbox obsidian keepassxc
+  echo "Installing Node.js LTS..."
   fnm install --lts
+  echo "Setting up greetd..."
+  sudo cp /etc/greetd/config.toml /etc/greetd/config.toml 
+  sudo chown root:root /etc/greetd/config.toml
+  sudo chmod 644 /etc/greetd/config.toml
+  sudo systemctl enable greetd.service
 elif command -v apt &> /dev/null; then
+  # If installing in Debian or Ubuntu this is a server or WSL VM
   echo "Installing packages..."
   sudo apt install -y build-essential git tmux neovim nodejs npm gcc rustup pyright ripgrep
   if ! command -v brew &> /dev/null; then
@@ -71,4 +79,3 @@ if [ ! -d "$HOME"/.tmux/plugins/tpm ]; then
   echo "Cloning tpm..."
   git clone https://github.com/tmux-plugins/tpm "$HOME"/.tmux/plugins/tpm
 fi
-
