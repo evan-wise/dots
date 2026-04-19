@@ -44,8 +44,9 @@ if command -v pacman &> /dev/null; then
     popd
     popd
   fi
+  # Includes UI packages as well since this is a laptop...
   echo "Installing packages..."
-  paru -Sy --noconfirm base-devel git tmux neovim fnm gcc rustup pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst vivaldi gnome-keyring libsecret dropbox obsidian keepassxc
+  paru -Sy --noconfirm base-devel git tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst vivaldi gnome-keyring libsecret dropbox libappindicator obsidian keepassxc
   echo "Installing Node.js LTS..."
   fnm install --lts
   echo "Setting up greetd..."
@@ -53,6 +54,8 @@ if command -v pacman &> /dev/null; then
   sudo chown root:root /etc/greetd/config.toml
   sudo chmod 644 /etc/greetd/config.toml
   sudo systemctl enable greetd.service
+  echo "Setting up NetworkManager..."
+  sudo systemctl enable NetworkManager.service
 elif command -v apt &> /dev/null; then
   # If installing in Debian or Ubuntu this is a server or WSL VM
   echo "Installing packages..."
