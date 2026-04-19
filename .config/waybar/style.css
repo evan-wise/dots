@@ -23,8 +23,7 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
   font-family:
-    FontAwesome,
-    Fira Code,
+    Fira Code Nerd Font,
     monospace;
   font-size: 14px;
   background-color: transparent;
