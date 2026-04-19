@@ -49,6 +49,8 @@ if command -v pacman &> /dev/null; then
   paru -Sy --noconfirm base-devel git tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep ttf-fira-code ttf-nerd-fonts-symbols noto-fonts-emoji lua-language-server greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst vivaldi gnome-keyring libsecret dropbox libappindicator obsidian keepassxc
   echo "Installing Node.js LTS..."
   fnm install --lts
+  echo "Setting up hyprpolkitagent..."
+  systemctl --user enable hyprpolkitagent
   echo "Setting up greetd..."
   sudo cp /etc/greetd/config.toml /etc/greetd/config.toml 
   sudo chown root:root /etc/greetd/config.toml
