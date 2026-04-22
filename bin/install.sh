@@ -29,6 +29,9 @@ while [ $# -gt 0 ]; do
     shift
 done
 
+echo "Creating directories..."
+mkdir -p src
+
 if command -v pacman &> /dev/null; then
   # If installing in arch, this is a dev laptop
   # Install base-devel, git and rust to bootstrap paru
@@ -36,7 +39,6 @@ if command -v pacman &> /dev/null; then
     echo "Bootstrapping paru..."
     sudo pacman -Sy --noconfirm base-devel git rustup
     rustup default stable
-    mkdir -p src
     pushd src
     git clone https://aur.archlinux.org/paru.git
     pushd paru

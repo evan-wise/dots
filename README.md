@@ -24,7 +24,7 @@ After creating the local copy of the repo with the bootstrap script, you can
 interact with it using the `.git` alias.
 
 To attempt to install system packages you can now run the install script by
-typing `sudo install.sh`. This script requires elevated permissions to install
+typing `install.sh`. This script requires elevated permissions to install
 packages using your operating system's package manager. It only supports Arch
 and Ubuntu currently.
 
@@ -41,20 +41,45 @@ in a different location is based on [this article](https://www.atlassian.com/git
 
 ### Dotfiles
 
+- `.bash_profile`: login profile for bash shell.
 - `.bashrc`: config file for bash shell.
-
-- `.tmux.confg`: config file for tmux terminal multiplexer.
-
-- `.config/nvim/init.lua`: config file for NeoVim text editor.
-
+- `.zprofile`: login profile for zsh shell.
+- `.zshrc`: config file for zsh shell.
+- `.gitconfig-common`: shared git configuration, included by `.gitconfig`.
+- `.gitignore`: global git ignore rules.
+- `.tmux.conf`: config file for tmux terminal multiplexer.
 - `.wezterm.lua`: config file for WezTerm terminal emulator.
-  - Key features: Highly configurable, many built-in color schemes, ligature support.
+- `.config/nvim/init.lua`: entry point for NeoVim configuration.
+- `.config/nvim/lua/plugins/`: split plugin configs loaded by `lazy.nvim`.
+  - `core.lua`: colorscheme, treesitter, telescope, and editing plugins.
+  - `completions.lua`: LSP, snippets, and completion plugins.
+  - `experimental.lua`: optional/disabled plugins (e.g. nvim-tree, neotest).
+- `.config/hypr/hyprland.conf`: Hyprland compositor configuration.
+- `.config/hypr/hyprpaper.conf`: wallpaper configuration for hyprpaper.
+- `.config/hypr/hyprlock.conf`: lock screen configuration for hyprlock.
+- `.config/hypr/hypridle.conf`: idle daemon configuration for hypridle.
+- `.config/waybar/config.jsonc`: waybar status bar layout and modules.
+- `.config/waybar/style.css`: waybar status bar styling.
+- `.config/wofi/config`: wofi launcher configuration.
+- `.config/wofi/style.css`: wofi launcher styling.
+- `.config/dunst/dunstrc`: dunst notification daemon configuration.
+- `.config/greetd/config.toml`: greetd login manager configuration.
+- `.config/systemd/user/`: user systemd service and socket units for
+  PipeWire, Bluetooth, Dropbox, dunst, flameshot, hyprpaper, hypridle,
+  waybar, and hyprpolkitagent.
+- `.claude/settings.json`: Claude Code settings.
+- `.claude/statusline-command.sh`: script for Claude Code status line.
 
 ### Directories
 
 - `.tmux/plugins`: directory for storing tmux plugins.
-
 - `src`: directory for storing user authored source code and local copies of public repos.
+
+### Scripts
+
+- `bin/bootstrap.sh`: clones the bare repo and checks out dotfiles into `$HOME`.
+- `bin/install.sh`: installs system packages via `pacman`/`paru` (Arch) or `apt` (Debian/Ubuntu).
+- `bin/backup.sh`: backs up KeePass and Logs from Dropbox to `~/backup`.
 
 ### tmux plugins
 
@@ -65,21 +90,25 @@ in a different location is based on [this article](https://www.atlassian.com/git
 ### NeoVim plugins
 
 - [`lazy.nvim`][lazy.nvim]: plugin manager for NeoVim, manages other plugins below.
-- [`folke/tokyonight.nvim`][tokyonight.nvim]: Tokyo Night colorscheme for NeoVim.
+- [`ellisonleao/gruvbox.nvim`][gruvbox.nvim]: Gruvbox colorscheme for NeoVim.
 - [`folke/lazydev.nvim`][lazydev.nvim]: types and completions for NeoVim config files.
-- [`Bilal2453/luvit-meta`][luvit-meta]: types for `vim.uv`
+- [`Bilal2453/luvit-meta`][luvit-meta]: types for `vim.uv`.
 - [`telescope.nvim`][telescope.nvim]: fuzzy file finder.
-- [`telescope-fzf-native`][telescope-fzf-native]: fast C implementation of
-  fzf.
-- [`nvim-tree`][nvim-tree]: filesystem tree viewer.
+- [`telescope-fzf-native`][telescope-fzf-native]: fast C implementation of fzf.
 - [`nvim-treesitter`][nvim-treesitter]: parser based syntax highlighting.
 - [`LuaSnip`][LuaSnip]: snippet engine, used by `nvim-cmp` and required for some LSPs.
 - [`nvim-cmp`][nvim-cmp]: completion plugin for NeoVim.
 - [`nvim-lspconfig`][nvim-lspconfig]: common configurations for LSPs.
 - [`cmp-nvim-lsp`][cmp-nvim-lsp]: `nvim-cmp` source for LSPs.
-- [`copilot.lua`][copilot.lua]: GitHub copilot integration.
+- [`copilot.lua`][copilot.lua]: GitHub Copilot integration.
 - [`nvim-surround`][nvim-surround]: insert / modify / delete surrounding characters and tags.
-- [`Comments.nvim`][Comments.nvim]: easily add and remove line and block comments.
+- [`Comment.nvim`][Comments.nvim]: easily add and remove line and block comments.
+- [`nvim-highlight-colors`][nvim-highlight-colors]: inline color previews in the editor.
+- [`neotest`][neotest]: test runner framework with adapters for Python, Jest, and Vitest.
+
+The following plugins are configured in `experimental.lua` and disabled by default:
+
+- [`nvim-tree`][nvim-tree]: filesystem tree viewer.
 
 ### Other
 
@@ -94,7 +123,6 @@ the setup scripts to do this automatically.
 
 ## TODO
 
-- [ ] Bring file manifest in README up to date.
 - [ ] Consider scripts to manage theming.
 - [ ] Make a prompt that detects non graphical environments (symbols look bad)
 
@@ -104,13 +132,11 @@ the setup scripts to do this automatically.
 [tmux-sensible]: https://github.com/tmux-plugins/tmux-sensible
 [tmux-resurrect]: https://github.com/tmux-plugins/tmux-resurrect
 [lazy.nvim]: https://github.com/folke/lazy.nvim
+[gruvbox.nvim]: https://github.com/ellisonleao/gruvbox.nvim
 [lazydev.nvim]: https://github.com/folke/lazydev.nvim
-[tokyonight.nvim]: https://github.com/folke/tokyonight.nvim
 [luvit-meta]: https://github.com/Bilal2453/luvit-meta
-[solarized.nvim]: https://github.com/maxmx03/solarized.nvim
 [telescope.nvim]: https://github.com/nvim-telescope/telescope.nvim
 [telescope-fzf-native]: https://github.com/nvim-telescope/telescope-fzf-native.nvim
-[nvim-tree]: https://github.com/nvim-tree/nvim-tree.lua
 [nvim-treesitter]: https://github.com/nvim-treesitter/nvim-treesitter
 [LuaSnip]: https://github.com/L3MON4D3/LuaSnip
 [nvim-cmp]: https://github.com/hrsh7th/nvim-cmp
@@ -119,4 +145,7 @@ the setup scripts to do this automatically.
 [copilot.lua]: https://github.com/zbirenbaum/copilot.lua
 [nvim-surround]: https://github.com/kylechui/nvim-surround
 [Comments.nvim]: https://github.com/numToStr/Comment.nvim
+[nvim-highlight-colors]: https://github.com/brenoprata10/nvim-highlight-colors
+[neotest]: https://github.com/nvim-neotest/neotest
+[nvim-tree]: https://github.com/nvim-tree/nvim-tree.lua
 
