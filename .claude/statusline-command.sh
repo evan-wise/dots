@@ -34,7 +34,7 @@ if [ -f "$cwd/.git/HEAD" ]; then
 fi
 
 # --- Usage from rate limits ---
-day_raw=$(printf '%s' "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty' 2>/dev/null)
+session_raw=$(printf '%s' "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty' 2>/dev/null)
 week_raw=$(printf '%s' "$input" | jq -r '.rate_limits.seven_day.used_percentage // empty' 2>/dev/null)
 
 color_pct() {
@@ -50,10 +50,19 @@ color_pct() {
   fi
 }
 
-if [ -n "$day_raw" ] || [ -n "$week_raw" ]; then
-  day_pct=$(printf '%.0f' "${day_raw:-0}" 2>/dev/null || echo "0")
-  week_pct=$(printf '%.0f' "${week_raw:-0}" 2>/dev/null || echo "0")
-  usage_str="Session: $(color_pct "$day_pct"), Week: $(color_pct "$week_pct")"
+usage_str=""
+if [ -n "$session_raw" ] && [ "$session_raw" != "null" ]; then
+  session_pct=$(printf '%.0f' "$day_raw" 2>/dev/null || echo "0")
+  usage_str="Session: $(color_pct "$session_pct")"
+fi
+
+if [ -n "$week_raw" ] && [ "$week_raw" != "null" ]; then
+  week_pct=$(printf '%.0f' "$week_raw" 2>/dev/null || echo "0")
+  if [ -n "$usage_str" ]; then
+    usage_str="${usage_str}, Week: $(color_pct "$week_pct")"
+  else
+    usage_str="Week: $(color_pct "$week_pct")"
+  fi
 fi
 
 # --- Context window progress bar ---
