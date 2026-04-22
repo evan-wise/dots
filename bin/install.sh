@@ -46,7 +46,7 @@ if command -v pacman &> /dev/null; then
   fi
   # Includes UI packages as well since this is a laptop...
   echo "Installing packages..."
-  paru -Sy --noconfirm base-devel git tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst thunar vivaldi gnome-keyring libsecret dropbox libappindicator obsidian keepassxc kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol
+  paru -Sy --noconfirm base-devel git tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git wezterm-git flameshot qt5-wayland qt6-wayland brightnessctl waybar wofi dunst thunar vivaldi gnome-keyring libsecret dropbox libappindicator obsidian keepassxc kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman
   echo ""
   echo "Theme setup — run these GUI tools to finish:"
   echo "  kvantummanager  — select Gruvbox theme, click Apply"
@@ -65,6 +65,9 @@ if command -v pacman &> /dev/null; then
   sudo chown root:root /etc/greetd/config.toml
   sudo chmod 644 /etc/greetd/config.toml
   sudo systemctl enable greetd.service
+  echo "Setting up Bluetooth..."
+  sudo systemctl enable --now bluetooth.service
+  systemctl --user enable --now blueman-applet
   echo "Setting up NetworkManager..."
   sudo systemctl enable --now NetworkManager.service
 elif command -v apt &> /dev/null; then
