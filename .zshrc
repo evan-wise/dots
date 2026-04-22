@@ -193,13 +193,20 @@ export CLOUDSDK_PYTHON=$(which python3)
 BRANCH_ICON=$'\xef\x84\xa6'
 
 _prompt_precmd() {
-  local git_part=""
+  local git_part="" prompt_char branch_prefix
+  if [[ "$TERM" == "linux" ]]; then
+    prompt_char=">"
+    branch_prefix=""
+  else
+    prompt_char="❯"
+    branch_prefix="${BRANCH_ICON} "
+  fi
   local branch
   branch=$(git symbolic-ref --short HEAD 2>/dev/null) || branch=$(git rev-parse --short HEAD 2>/dev/null)
   if [ -n "$branch" ]; then
-    git_part=" %F{yellow}${BRANCH_ICON} ${branch}%f"
+    git_part=" %F{yellow}${branch_prefix}${branch}%f"
   fi
-  PROMPT="%F{green}%n@%m%f %F{blue}%~%f${git_part} %F{white}❯%f "
+  PROMPT="%F{green}%n@%m%f %F{blue}%~%f${git_part} %F{white}${prompt_char}%f "
 }
 
 autoload -Uz add-zsh-hook

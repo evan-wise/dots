@@ -179,13 +179,20 @@ eval "$(fnm env --use-on-cd --shell bash)"
 BRANCH_ICON=$'\xef\x84\xa6'
 
 _prompt_command() {
-  local git_part=""
+  local git_part="" prompt_char branch_prefix
+  if [[ "$TERM" == "linux" ]]; then
+    prompt_char=">"
+    branch_prefix=""
+  else
+    prompt_char="❯"
+    branch_prefix="${BRANCH_ICON} "
+  fi
   local branch
   branch=$(git symbolic-ref --short HEAD 2>/dev/null) || branch=$(git rev-parse --short HEAD 2>/dev/null)
   if [ -n "$branch" ]; then
-    git_part=" \033[33m${BRANCH_ICON} ${branch}\033[0m"
+    git_part=" \033[33m${branch_prefix}${branch}\033[0m"
   fi
-  PS1="\033[32m\u@\h\033[0m \033[34m\w\033[0m${git_part} \033[37m❯\033[0m "
+  PS1="\033[32m\u@\h\033[0m \033[34m\w\033[0m${git_part} \033[37m${prompt_char}\033[0m "
 }
 
 PROMPT_COMMAND=(_prompt_command)

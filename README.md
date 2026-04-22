@@ -124,7 +124,6 @@ the setup scripts to do this automatically.
 ## TODO
 
 - [ ] Consider scripts to manage theming.
-- [ ] Make a prompt that detects non graphical environments (symbols look bad)
 
 <!-- References -->
 
