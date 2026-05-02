@@ -33,6 +33,16 @@ Dropbox/
 # Haxe
 .haxelib
 haxelib/
+# Claude
+.claude/.credentials.json
+.claude/backups/
+.claude/sessions/
+.claude/session-env/
+.claude/shell-snapshots/
+.claude/history.jsonl
+.claude/downloads/
+.claude/projects/
+.claude/plans/
 # Custom
 src/
 backup/
