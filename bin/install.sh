@@ -48,7 +48,7 @@ if command -v pacman &> /dev/null; then
   fi
   # Includes UI packages as well since this is a laptop...
   echo "Installing packages..."
-  paru -Sy --noconfirm base-devel git tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git qt5-wayland qt6-wayland brightnessctl waybar wofi dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git
+  paru -Sy --noconfirm base-devel git docker docker-compose tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git qt5-wayland qt6-wayland brightnessctl waybar wofi dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git
   echo ""
   echo "Theme setup — run these GUI tools to finish:"
   echo "  kvantummanager  — select Gruvbox theme, click Apply"
@@ -63,9 +63,12 @@ if command -v pacman &> /dev/null; then
   sudo chown root:root /etc/greetd/config.toml
   sudo chmod 644 /etc/greetd/config.toml
   sudo systemctl enable greetd.service
+  echo "Setting up docker..."
+  systemctl --enable --now docker.socket
+  sudo usermod -aG docker "$USER"
   echo "Setting up pcscd..."
   sudo systemctl enable --now pcscd
-  sudo usermod -aG pcscd $USER
+  sudo usermod -aG pcscd "$USER"
   echo "Setting up USB automounting..."
   sudo systemctl enable --now udisks2.service
   systemctl --user enable --now udiskie
