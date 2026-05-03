@@ -58,51 +58,39 @@ return {
     dependencies = { 'hrsh7th/cmp-nvim-lsp' },
     config = function()
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
-      local on_attach = function(_, bufnr)
-        local bufopts = { noremap = true, silent = true, buffer = bufnr }
-        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
-        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
-        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
-        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
-        vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, bufopts)         -- Remaps a default binding I don't use
-        vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
-        vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
-        vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
-        vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
-        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, bufopts)
-      end
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        callback = function(args)
+          local bufopts = { noremap = true, silent = true, buffer = args.buf }
+          vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+          vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+          vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+          vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+          vim.keymap.set('n', 'gI', vim.lsp.buf.implementation, bufopts)
+          vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, bufopts)
+          vim.keymap.set('n', '<leader>s', vim.lsp.buf.signature_help, bufopts)
+          vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, bufopts)
+          vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, bufopts)
+          vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, bufopts)
+        end,
+      })
 
       vim.lsp.enable('ts_ls')
-      vim.lsp.config('ts_ls', {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
+      vim.lsp.config('ts_ls', { capabilities = capabilities })
 
       vim.lsp.enable('pyright')
-      vim.lsp.config('pyright', {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
+      vim.lsp.config('pyright', { capabilities = capabilities })
 
       vim.lsp.enable('lua_ls')
-      vim.lsp.config('lua_ls', {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
+      vim.lsp.config('lua_ls', { capabilities = capabilities })
 
       vim.lsp.enable('astro')
-      vim.lsp.config('astro', {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
+      vim.lsp.config('astro', { capabilities = capabilities })
 
       vim.lsp.enable('rust_analyzer')
-      vim.lsp.config('rust_analyzer', {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      })
+      vim.lsp.config('rust_analyzer', { capabilities = capabilities })
     end,
-    ft = { 'typescript', 'javascript', 'python', 'lua', 'astro', 'rust' },
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'python', 'lua', 'astro', 'rust' },
   },
   {
     'zbirenbaum/copilot.lua',
