@@ -42,21 +42,12 @@ return {
   { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
   {
     'nvim-treesitter/nvim-treesitter',
-    version = '*',
-    event = 'BufReadPre',
+    version = false,
+    lazy = false,
     build = ':TSUpdate',
     config = function()
-      require('nvim-treesitter.configs').setup({
-        ensure_installed = { 'typescript', 'tsx', 'lua', 'python', 'json', 'html', 'css', 'markdown', 'astro', 'rust' },
-        sync_install = false,
-        auto_install = true,
-        ignore_install = {},
-        modules = {},
-        highlight = {
-          enable = true,
-          additional_vim_regex_highlighting = true,
-        },
-        indent = false,
+      require('nvim-treesitter').install({
+        'typescript', 'tsx', 'python', 'json', 'html', 'css', 'astro', 'rust',
       })
     end,
   },
