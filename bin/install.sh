@@ -48,7 +48,7 @@ if command -v pacman &> /dev/null; then
   fi
   # Includes UI packages as well since this is a laptop...
   echo "Installing packages..."
-  paru -Sy --noconfirm ufw btrfs-progs base-devel git docker docker-compose tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git qt5-wayland qt6-wayland brightnessctl waybar wofi dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git wl-clipboard
+  paru -Sy --noconfirm ufw btrfs-progs base-devel git docker docker-compose tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git qt5-wayland qt6-wayland brightnessctl waybar wofi dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git wl-clipboard tlp tlp-rdw
   echo ""
   echo "Theme setup — run these GUI tools to finish:"
   echo "  kvantummanager  — select Gruvbox theme, click Apply"
@@ -82,6 +82,13 @@ if command -v pacman &> /dev/null; then
   systemctl --user enable --now blueman-applet
   echo "Setting up NetworkManager..."
   sudo systemctl enable --now NetworkManager.service
+  sudo systemctl enable --now NetworkManager-dispatcher.service
+  echo "Setting up TLP..."
+  sudo mkdir -p /etc/tlp.d
+  sudo cp ~/.config/tlp/99-custom.conf /etc/tlp.d/99-custom.conf
+  sudo chown root:root /etc/tlp.d/99-custom.conf
+  sudo chmod 644 /etc/tlp.d/99-custom.conf
+  sudo systemctl enable --now tlp.service
   echo "Setting up PipeWire..."
   systemctl --user enable --now pipewire pipewire-pulse wireplumber
   echo "Setting up hyprpolkitagent..."
