@@ -52,7 +52,7 @@ color_pct() {
 
 usage_str=""
 if [ -n "$session_raw" ] && [ "$session_raw" != "null" ]; then
-  session_pct=$(printf '%.0f' "$day_raw" 2>/dev/null || echo "0")
+  session_pct=$(printf '%.0f' "$session_raw" 2>/dev/null || echo "0")
   usage_str="Session: $(color_pct "$session_pct")"
 fi
 
