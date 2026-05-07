@@ -104,6 +104,7 @@ elif command -v apt &> /dev/null; then
   echo "Installing brew packages..."
   brew install lua-language-server
 elif command -v brew &> /dev/null; then
+  # If brew is present but not apt this is probably a Mac laptop...
   echo "Installing brew taps..."
   brew tap xo/xo eugene1g/safehouse
   echo "Installing brew casks..."
