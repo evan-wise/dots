@@ -89,8 +89,11 @@ return {
 
       vim.lsp.enable('rust_analyzer')
       vim.lsp.config('rust_analyzer', { capabilities = capabilities })
+
+      vim.lsp.enable('csharp_ls')
+      vim.lsp.config('csharp_ls', { capabilities = capabilities })
     end,
-    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'python', 'lua', 'astro', 'rust' },
+    ft = { 'typescript', 'typescriptreact', 'javascript', 'javascriptreact', 'python', 'lua', 'astro', 'rust', 'cs' },
   },
   {
     'zbirenbaum/copilot.lua',

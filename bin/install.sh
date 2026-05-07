@@ -48,14 +48,7 @@ if command -v pacman &> /dev/null; then
   fi
   # Includes UI packages as well since this is a laptop...
   echo "Installing packages..."
-  paru -Sy --noconfirm ufw btrfs-progs base-devel git docker docker-compose tmux neovim tree-sitter-cli fnm gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git qt5-wayland qt6-wayland brightnessctl waybar wofi dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git wl-clipboard tlp tlp-rdw
-  echo ""
-  echo "Theme setup — run these GUI tools to finish:"
-  echo "  kvantummanager  — select Gruvbox theme, click Apply"
-  echo "  qt6ct           — set Style to 'kvantum', apply"
-  echo "  qt5ct           — set Style to 'kvantum', apply"
-  echo "  nwg-look        — select Gruvbox GTK theme + Gruvbox Plus icon theme, apply"
-  echo ""
+  paru -Sy --noconfirm ufw btrfs-progs base-devel git docker docker-compose tmux neovim tree-sitter-cli luarocks fnm gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git qt5-wayland qt6-wayland brightnessctl waybar wofi dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git wl-clipboard tlp tlp-rdw
   echo "Installing Node.js LTS..."
   fnm install --lts
   echo "Setting up ufw..."
@@ -93,6 +86,13 @@ if command -v pacman &> /dev/null; then
   systemctl --user enable --now pipewire pipewire-pulse wireplumber
   echo "Setting up hyprpolkitagent..."
   systemctl --user enable --now hyprpolkitagent
+  echo ""
+  echo "Theme setup — run these GUI tools to finish:"
+  echo "  kvantummanager  — select Gruvbox theme, click Apply"
+  echo "  qt6ct           — set Style to 'kvantum', apply"
+  echo "  qt5ct           — set Style to 'kvantum', apply"
+  echo "  nwg-look        — select Gruvbox GTK theme + Gruvbox Plus icon theme, apply"
+  echo ""
 elif command -v apt &> /dev/null; then
   # If installing in Debian or Ubuntu this is a server or WSL VM
   echo "Installing packages..."
@@ -103,6 +103,20 @@ elif command -v apt &> /dev/null; then
   fi
   echo "Installing brew packages..."
   brew install lua-language-server
+elif command -v brew &> /dev/null; then
+  # If brew is present but not apt this is probably a Mac laptop...
+  echo "Installing brew taps..."
+  brew tap xo/xo eugene1g/safehouse
+  echo "Installing brew casks..."
+  brew install --cask dotnet-sdk wezterm@nightly
+  echo "Installing brew formulae..."
+  brew install tmux neovim ripgrep tree-sitter-cli luarocks usql agent-safehouse dos2unix fnm typescript-language-server lua-language-server pyright
+  echo "Installing dotnet global tools..."
+  dotnet tool install --global csharp-ls
+  echo "Installing Node.js LTS..."
+  fnm install --lts
+  echo "Installing Rust stable..."
+  rustup default stable
 else
   echoerr "Unsupported package manager."
   exit 1
