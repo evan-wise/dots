@@ -47,7 +47,7 @@ return {
     build = ':TSUpdate',
     config = function()
       require('nvim-treesitter').install({
-        'typescript', 'tsx', 'python', 'json', 'html', 'css', 'astro', 'rust',
+        'typescript', 'tsx', 'python', 'json', 'html', 'css', 'astro', 'rust', 'c_sharp'
       })
     end,
   },
