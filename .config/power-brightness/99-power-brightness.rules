@@ -1,0 +1,1 @@
+ACTION=="change", SUBSYSTEM=="power_supply", KERNEL=="AC", TAG+="systemd", ENV{SYSTEMD_WANTS}="power-brightness.service"

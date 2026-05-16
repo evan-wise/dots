@@ -84,6 +84,18 @@ if command -v pacman &> /dev/null; then
   sudo chown root:root /etc/tlp.d/99-custom.conf
   sudo chmod 644 /etc/tlp.d/99-custom.conf
   sudo systemctl enable --now tlp.service
+  echo "Setting up power brightness..."
+  sudo cp ~/.config/power-brightness/power-brightness.sh /usr/local/bin/power-brightness.sh
+  sudo chown root:root /usr/local/bin/power-brightness.sh
+  sudo chmod 755 /usr/local/bin/power-brightness.sh
+  sudo cp ~/.config/power-brightness/99-power-brightness.rules /etc/udev/rules.d/99-power-brightness.rules
+  sudo chown root:root /etc/udev/rules.d/99-power-brightness.rules
+  sudo chmod 644 /etc/udev/rules.d/99-power-brightness.rules
+  sudo cp ~/.config/power-brightness/power-brightness.service /etc/systemd/system/power-brightness.service
+  sudo chown root:root /etc/systemd/system/power-brightness.service
+  sudo chmod 644 /etc/systemd/system/power-brightness.service
+  sudo systemctl daemon-reload
+  sudo udevadm control --reload-rules
   echo "Setting up PipeWire..."
   systemctl --user enable --now pipewire pipewire-pulse wireplumber
   echo "Setting up hyprpolkitagent..."

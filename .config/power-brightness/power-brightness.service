@@ -1,0 +1,6 @@
+[Unit]
+Description=Adjust brightness on power source change
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/power-brightness.sh
