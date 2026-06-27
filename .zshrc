@@ -1,5 +1,5 @@
 # Author: Evan Wise
-# Revision Date: 2026-04-08
+# Revision Date: 2026-06-26
 
 ################################################################################
 # Shell settings
@@ -25,11 +25,14 @@ else
   EDITOR=$(which vi); export EDITOR
 fi
 
-# Add homebrew installs to path, if found.
-[[ -d /opt/homebrew/bin ]] && PATH="/opt/homebrew/bin:$PATH"
+# Add cargo install to path, if found.
+[[ -d "$HOME/.cargo/bin" ]] && PATH="$PATH:$HOME/.cargo/bin"
 
 # Add dotnet tools to path, if found.
 [[ -d "$HOME/.dotnet/tools" ]] && PATH="$PATH:$HOME/.dotnet/tools"
+
+# Prepend homebrew installs to path, if found.
+[[ -d /opt/homebrew/bin ]] && PATH="/opt/homebrew/bin:$PATH"
 
 # Prepend user scripts and local installs.
 export PATH="$HOME/bin:$HOME/.local/bin:$PATH"

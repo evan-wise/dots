@@ -1,5 +1,5 @@
 # Author: Evan Wise
-# Revision Date: 2026-04-08
+# Revision Date: 2026-06-26
 
 ################################################################################
 # Shell settings
@@ -19,8 +19,11 @@ else
     EDITOR=/usr/bin/vi; export EDITOR
 fi
 
-# Add local bin folders to the PATH.
-export PATH=$PATH:$HOME/bin:$HOME/.local/bin
+# Add cargo install to path, if found.
+[[ -d "$HOME/.cargo/bin" ]] && PATH="$PATH:$HOME/.cargo/bin"
+
+# Prepend user scripts and local installs.
+export PATH="$HOME/bin:$HOME/.local/bin:$PATH"
 
 # Set homebrew environment variables (if applicable).
 if [ -d /home/linuxbrew/.linuxbrew ]; then
