@@ -66,7 +66,7 @@ if command -v pacman &> /dev/null; then
   sudo chmod 644 /etc/greetd/config.toml
   sudo systemctl enable greetd.service
   echo "Setting up docker..."
-  systemctl --enable --now docker.socket
+  sudo systemctl enable --now docker.socket
   sudo usermod -aG docker "$USER"
   echo "Setting up pcscd (smart cards)..."
   sudo systemctl enable --now pcscd
