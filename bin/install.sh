@@ -53,6 +53,8 @@ if command -v pacman &> /dev/null; then
   fnm install --lts
   echo "Installing dotnet global tools..."
   dotnet tool install --global csharp-ls
+  echo "Setting up timesyncd..."
+  sudo systemctl enable --now systemd-timesyncd
   echo "Setting up ufw..."
   sudo ufw default deny incoming
   sudo ufw default allow outgoing
@@ -66,7 +68,7 @@ if command -v pacman &> /dev/null; then
   echo "Setting up docker..."
   systemctl --enable --now docker.socket
   sudo usermod -aG docker "$USER"
-  echo "Setting up pcscd..."
+  echo "Setting up pcscd (smart cards)..."
   sudo systemctl enable --now pcscd
   sudo usermod -aG pcscd "$USER"
   echo "Setting up USB automounting..."
@@ -78,13 +80,13 @@ if command -v pacman &> /dev/null; then
   echo "Setting up NetworkManager..."
   sudo systemctl enable --now NetworkManager.service
   sudo systemctl enable --now NetworkManager-dispatcher.service
-  echo "Setting up TLP..."
+  echo "Setting up TLP (power consumption)..."
   sudo mkdir -p /etc/tlp.d
   sudo cp ~/.config/tlp/99-custom.conf /etc/tlp.d/99-custom.conf
   sudo chown root:root /etc/tlp.d/99-custom.conf
   sudo chmod 644 /etc/tlp.d/99-custom.conf
   sudo systemctl enable --now tlp.service
-  echo "Setting up power brightness..."
+  echo "Setting up power-consumption brightness control scripts..."
   sudo cp ~/.config/power-brightness/power-brightness.sh /usr/local/bin/power-brightness.sh
   sudo chown root:root /usr/local/bin/power-brightness.sh
   sudo chmod 755 /usr/local/bin/power-brightness.sh
