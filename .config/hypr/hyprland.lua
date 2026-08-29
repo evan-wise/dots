@@ -159,15 +159,15 @@ local mainMod = "SUPER"
 
 hl.bind(mainMod .. " + SHIFT + code:201", hl.dsp.exec_cmd(menu)) -- Copilot key -> app launcher
 
-hl.bind(mainMod .. " + grave", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + F",     hl.dsp.exec_cmd(file_manager))
-hl.bind(mainMod .. " + B",     hl.dsp.exec_cmd(browser))
-hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(password_manager))
-hl.bind(mainMod .. " + N",     hl.dsp.exec_cmd("obsidian"))
-hl.bind(mainMod .. " + Q",     hl.dsp.window.close())
+hl.bind(mainMod .. " + grave",     hl.dsp.exec_cmd(terminal))
+hl.bind(mainMod .. " + F",         hl.dsp.exec_cmd(file_manager))
+hl.bind(mainMod .. " + B",         hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + K",         hl.dsp.exec_cmd(password_manager))
+hl.bind(mainMod .. " + N",         hl.dsp.exec_cmd("obsidian"))
+hl.bind(mainMod .. " + Q",         hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
-hl.bind(mainMod .. " + P",     hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + Escape", hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + P",         hl.dsp.window.pseudo())
+hl.bind(mainMod .. " + Escape",    hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
@@ -191,10 +191,10 @@ end
 hl.bind(mainMod .. " + Tab",         hl.dsp.workspace.toggle_special("magic"))
 hl.bind(mainMod .. " + SHIFT + Tab", hl.dsp.window.move({ workspace = "special:magic" }))
 
-hl.bind(mainMod .. " + Return",        hl.dsp.exec_cmd("dunstctl close"))
-hl.bind(mainMod .. " + SHIFT + Return",hl.dsp.exec_cmd("dunstctl close-all"))
-hl.bind(mainMod .. " + ALT + Return",  hl.dsp.exec_cmd("dunstctl history-pop"))
-hl.bind(mainMod .. " + CTRL + Return", hl.dsp.exec_cmd("dunstctl context"))
+hl.bind(mainMod .. " + Return",         hl.dsp.exec_cmd("dunstctl close"))
+hl.bind(mainMod .. " + SHIFT + Return", hl.dsp.exec_cmd("dunstctl close-all"))
+hl.bind(mainMod .. " + ALT + Return",   hl.dsp.exec_cmd("dunstctl history-pop"))
+hl.bind(mainMod .. " + CTRL + Return",  hl.dsp.exec_cmd("dunstctl context"))
 
 hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd(take_screenshot))
 
