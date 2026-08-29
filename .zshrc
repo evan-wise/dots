@@ -181,8 +181,8 @@ alias :q='echo "Exit? (Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * 
 # Tool Setup
 ################################################################################
 
-# fnm
-eval "$(fnm env --use-on-cd --shell zsh)"
+# mise
+eval "$(mise activate zsh)"
 
 # gcloud
 export CLOUDSDK_PYTHON=$(which python3)

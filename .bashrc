@@ -173,7 +173,7 @@ alias :q='echo "Exit? (Y/n)";read ANS;case $ANS in Y | y ) exit ;; N | n ) ;; * 
 ################################################################################
 
 # fnm
-eval "$(fnm env --use-on-cd --shell bash)"
+eval "$(mise activate bash)"
 
 ################################################################################
 # Prompt
