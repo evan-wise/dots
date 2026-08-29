@@ -212,6 +212,14 @@ hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"), { loc
 --------------------------------
 
 hl.window_rule({
+    -- Chromium/Vivaldi restores a "maximized" state on launch, which lands it
+    -- on top of the tiled layout until the next relayout. Ignore those requests.
+    name  = "suppress-maximize-events",
+    match = { class = ".*" },
+    suppress_event = "maximize",
+})
+
+hl.window_rule({
     name  = "devtools-vivaldi",
     match = {
         class = "vivaldi-stable",
