@@ -19,7 +19,7 @@ hl.monitor({
 local terminal         = "wezterm"
 local password_manager = "keepassxc"
 local file_manager     = "thunar"
-local menu             = "wofi -S drun"
+local menu             = "hyprlauncher --toggle"
 local browser          = "vivaldi --password-store=gnome-libsecret"
 local take_screenshot  = "env XDG_CURRENT_DESKTOP=sway flameshot gui"
 
