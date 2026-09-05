@@ -120,19 +120,13 @@ elif command -v apt &> /dev/null; then
   echo "Installing brew packages..."
   brew install lua-language-server
 elif command -v brew &> /dev/null; then
-  # If brew is present but not apt this is probably a Mac laptop...
+  # If brew is present but not apt this is probably a Mac device...
   echo "Installing brew taps..."
-  brew tap xo/xo eugene1g/safehouse
-  echo "Installing brew casks..."
-  brew install --cask dotnet-sdk wezterm@nightly
+  brew tap xo/xo
   echo "Installing brew formulae..."
-  brew install tmux neovim ripgrep tree-sitter-cli luarocks usql agent-safehouse dos2unix mise typescript-language-server lua-language-server pyright
-  echo "Installing dotnet global tools..."
-  dotnet tool install --global csharp-ls
-  echo "Installing Node.js LTS..."
-  mise use -g node@lts
-  echo "Installing Rust stable..."
-  rustup default stable
+  brew install tmux neovim ripgrep tree-sitter-cli luarocks usql dos2unix mise typescript-language-server lua-language-server pyright
+  echo "Installing Node.js LTS and Rust stable..."
+  mise use -g node@lts rust@stable
 else
   echoerr "Unsupported package manager."
   exit 1
