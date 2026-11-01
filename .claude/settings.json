@@ -33,5 +33,6 @@
   "theme": "auto",
   "editorMode": "vim",
   "preferredNotifChannel": "terminal_bell",
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true,
+  "model": "sonnet"
 }

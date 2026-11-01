@@ -51,8 +51,8 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP && systemctl --user start hyprland-session.target")
     hl.exec_cmd(terminal, { workspace = "1" })
     hl.exec_cmd(browser, { workspace = "2" })
-    hl.exec_cmd("obsidian", { workspace = "magic" })
-    hl.exec_cmd(password_manager, { workspace = "magic" })
+    hl.exec_cmd("obsidian", { workspace = "special:magic" })
+    hl.exec_cmd(password_manager, { workspace = "special:magic" })
 end)
 
 -- Old config ran `systemctl --user stop hyprland-session.target` on exec-shutdown.
@@ -168,6 +168,7 @@ hl.bind(mainMod .. " + Q",         hl.dsp.window.close())
 hl.bind(mainMod .. " + SHIFT + Q", hl.dsp.exit())
 hl.bind(mainMod .. " + P",         hl.dsp.window.pseudo())
 hl.bind(mainMod .. " + Escape",    hl.dsp.exec_cmd("hyprlock"))
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("wl-copy $(hyprpicker)"))
 
 hl.bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + J", hl.dsp.focus({ direction = "down" }))
