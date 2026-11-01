@@ -54,19 +54,24 @@ in a different location is based on [this article](https://www.atlassian.com/git
   - `core.lua`: colorscheme, treesitter, telescope, and editing plugins.
   - `completions.lua`: LSP, snippets, and completion plugins.
   - `experimental.lua`: optional/disabled plugins (e.g. nvim-tree, neotest).
-- `.config/hypr/hyprland.conf`: Hyprland compositor configuration.
+- `.config/hypr/hyprland.lua`: Hyprland compositor configuration.
 - `.config/hypr/hyprpaper.conf`: wallpaper configuration for hyprpaper.
 - `.config/hypr/hyprlock.conf`: lock screen configuration for hyprlock.
 - `.config/hypr/hypridle.conf`: idle daemon configuration for hypridle.
 - `.config/waybar/config.jsonc`: waybar status bar layout and modules.
 - `.config/waybar/style.css`: waybar status bar styling.
-- `.config/wofi/config`: wofi launcher configuration.
-- `.config/wofi/style.css`: wofi launcher styling.
 - `.config/dunst/dunstrc`: dunst notification daemon configuration.
 - `.config/greetd/config.toml`: greetd login manager configuration.
 - `.config/systemd/user/`: user systemd service and socket units for
   PipeWire, Bluetooth, Dropbox, dunst, flameshot, hyprpaper, hypridle,
   waybar, and hyprpolkitagent.
+- `.config/tlp/99-custom.conf`: TLP power management settings, copied to
+  `/etc/tlp.d/` by `install.sh`.
+- `.config/power-brightness/`: udev rule, systemd unit and script that adjust
+  screen / keyboard brightness when the AC adapter changes; copied to system
+  locations by `install.sh`.
+- `.config/gloves/`: Dockerfile, dev container config and egress firewall
+  script for the Claude Code sandbox (see `bin/gloves.sh`).
 - `.claude/settings.json`: Claude Code settings.
 - `.claude/statusline-command.sh`: script for Claude Code status line.
 
@@ -78,8 +83,12 @@ in a different location is based on [this article](https://www.atlassian.com/git
 ### Scripts
 
 - `bin/bootstrap.sh`: clones the bare repo and checks out dotfiles into `$HOME`.
-- `bin/install.sh`: installs system packages via `pacman`/`paru` (Arch) or `apt` (Debian/Ubuntu).
+- `bin/install.sh`: installs system packages via `pacman`/`paru` (Arch), `apt` (Debian/Ubuntu) or `brew` (macOS).
 - `bin/backup.sh`: backs up KeePass and Logs from Dropbox to `~/backup`.
+- `bin/gloves.sh`: runs Claude Code in a sandboxed dev container with the
+  current directory mounted (aliased to `claude`; set `GLOVES_OFF=1` to run the
+  host binary). Requires docker and `@devcontainers/cli`.
+- `bin/tmux-bell-focus.sh`: tmux bell hook that focuses the window that rang.
 
 ### tmux plugins
 

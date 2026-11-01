@@ -30,7 +30,7 @@ while [ $# -gt 0 ]; do
 done
 
 echo "Creating directories..."
-mkdir -p src
+mkdir -p "$HOME/src"
 
 if command -v pacman &> /dev/null; then
   # If installing in arch, this is a dev laptop
@@ -39,7 +39,7 @@ if command -v pacman &> /dev/null; then
     echo "Bootstrapping paru..."
     sudo pacman -Sy --noconfirm base-devel git rustup
     rustup default stable
-    pushd src
+    pushd "$HOME/src"
     git clone https://aur.archlinux.org/paru.git
     pushd paru
     makepkg -si
@@ -48,7 +48,7 @@ if command -v pacman &> /dev/null; then
   fi
   # Includes UI packages as well since this is a laptop...
   echo "Installing packages..."
-  paru -Sy --noconfirm ufw btrfs-progs base-devel git docker docker-compose tmux neovim tree-sitter-cli luarocks mise gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git hyprlauncher-git hyprpicker-git qt5-wayland qt6-wayland brightnessctl waybar dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git wl-clipboard tlp tlp-rdw dotnet-runtime dotnet-sdk
+  paru -Sy --noconfirm ufw btrfs-progs base-devel git docker docker-compose tmux neovim tree-sitter-cli luarocks mise gcc rustup pyright ripgrep dnsutils viu ttf-fira-code ttf-firacode-nerd ttf-nerd-fonts-symbols ttf-nerd-fonts-symbols-mono nerdfix ttf-font-awesome noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-dejavu ttf-liberation ttf-ms-fonts lua-language-server jq greetd hyprland-git hyprpolkitagent-git xdg-desktop-portal-hyprland-git hyprpaper-git hyprlock-git hypridle-git hyprlauncher-git hyprpicker-git qt5-wayland qt6-wayland brightnessctl waybar dunst gnome-keyring libsecret libappindicator kvantum qt6ct qt5ct nwg-look gruvbox-gtk-theme-git kvantum-theme-gruvbox-git gruvbox-plus-icon-theme-git pipewire pipewire-pulse pipewire-alsa pipewire-jack wireplumber pavucontrol bluez bluez-utils blueman udisks2 udiskie pcsclite ccid ntfs-3g exfatprogs wezterm-git thunar tumbler ffmpegthumbnailer poppler-glib libgsf vivaldi flameshot grim slurp yubico-authenticator keepassxc dropbox obsidian discord zoom signal-desktop appflowy-bin libreoffice-fresh vlc qimgv-git wl-clipboard tlp tlp-rdw dotnet-runtime dotnet-sdk
   echo "Installing Node.js LTS..."
   mise use -g node@lts
   echo "Installing dotnet global tools..."

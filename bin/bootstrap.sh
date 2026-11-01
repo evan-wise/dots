@@ -25,7 +25,7 @@ fi
 read -p "Do you want to install system packages? [y/N] " install_system_packages
 
 if [[ $install_system_packages =~ ^[Yy]$ ]]; then
-  $HOME/.local/bin/install.sh
+  $HOME/bin/install.sh
 fi
 
 if [[ "$SHELL" == */zsh ]]; then
