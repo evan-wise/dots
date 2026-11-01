@@ -11,7 +11,9 @@
 #
 # Your real ~/.claude and ~/.claude.json are bind-mounted into the container at
 # the same paths, so the login, settings and plugins are shared with any local
-# install. Note: a container can read those credentials.
+# install. ~/.gitconfig-common is mounted read-only too, and the host's git
+# identity is passed in as environment variables. Note: a container can read
+# the Claude credentials.
 
 set -o errexit
 set -o nounset
@@ -52,6 +54,13 @@ while [ "$dir" != "/" ] && [ "$dir" != "$HOME" ]; do
 done
 
 extra_mounts=()
+
+# Shared git settings from this dots repo (the host's ~/.gitconfig, which holds
+# the identity and includes this file, is not mounted; see env_args below).
+gitconfig_mounts=()
+if [ -f "$HOME/.gitconfig-common" ]; then
+    gitconfig_mounts+=(--mount "type=bind,source=$HOME/.gitconfig-common,target=$HOME/.gitconfig-common,readonly")
+fi
 if [ -n "$project" ]; then
     workspace="$project"
     config_args=()
@@ -76,6 +85,7 @@ fi
 devcontainer up --workspace-folder "$workspace" ${config_args[@]+"${config_args[@]}"} \
     --mount "type=bind,source=$HOME/.claude,target=$HOME/.claude" \
     --mount "type=bind,source=$HOME/.claude.json,target=$HOME/.claude.json" \
+    ${gitconfig_mounts[@]+"${gitconfig_mounts[@]}"} \
     ${extra_mounts[@]+"${extra_mounts[@]}"} > /dev/null
 
 # Pass the host's git identity into the container so commits made there are
@@ -99,7 +109,11 @@ dc_exec sh -c '
         if [ ! -e "$HOME/$f" ] && [ "$HOME" != "$1" ]; then
             ln -s "$1/$f" "$HOME/$f" || echo "warning: could not link ~/$f" >&2
         fi
-    done' sh "$HOME"
+    done
+    # Include the shared git config (mounted at the host path) if present.
+    if [ -f "$1/.gitconfig-common" ] && [ ! -e "$HOME/.gitconfig" ]; then
+        printf "[include]\n\tpath = %s/.gitconfig-common\n" "$1" > "$HOME/.gitconfig"
+    fi' sh "$HOME"
 
 # Project dev containers may not ship Claude Code; install the native build.
 if ! dc_exec sh -c 'PATH="$HOME/.local/bin:$PATH"; command -v claude' &> /dev/null; then
