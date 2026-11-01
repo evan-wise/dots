@@ -11,7 +11,7 @@
 #
 # Your real ~/.claude and ~/.claude.json are bind-mounted into the container at
 # the same paths, so the login, settings and plugins are shared with any local
-# install. ~/.gitconfig and ~/.gitconfig-common are mounted read-only too.
+# install. ~/.gitconfig and ~/.gitconfig-common are mounted too (the devcontainer CLI has no read-only mount option).
 # Note: a container can read the Claude credentials.
 
 set -o errexit
@@ -58,7 +58,7 @@ extra_mounts=()
 gitconfig_mounts=()
 for f in .gitconfig .gitconfig-common; do
     if [ -f "$HOME/$f" ]; then
-        gitconfig_mounts+=(--mount "type=bind,source=$HOME/$f,target=$HOME/$f,readonly")
+        gitconfig_mounts+=(--mount "type=bind,source=$HOME/$f,target=$HOME/$f")
     fi
 done
 if [ -n "$project" ]; then
