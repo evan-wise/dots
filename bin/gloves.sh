@@ -78,6 +78,16 @@ devcontainer up --workspace-folder "$workspace" ${config_args[@]+"${config_args[
     --mount "type=bind,source=$HOME/.claude.json,target=$HOME/.claude.json" \
     ${extra_mounts[@]+"${extra_mounts[@]}"} > /dev/null
 
+# Pass the host's git identity into the container so commits made there are
+# attributed correctly (the host's ~/.gitconfig is not mounted).
+env_args=()
+if name=$(git config user.name 2>/dev/null) && [ -n "$name" ]; then
+    env_args+=(--remote-env "GIT_AUTHOR_NAME=$name" --remote-env "GIT_COMMITTER_NAME=$name")
+fi
+if email=$(git config user.email 2>/dev/null) && [ -n "$email" ]; then
+    env_args+=(--remote-env "GIT_AUTHOR_EMAIL=$email" --remote-env "GIT_COMMITTER_EMAIL=$email")
+fi
+
 dc_exec() {
     devcontainer exec --workspace-folder "$workspace" ${config_args[@]+"${config_args[@]}"} "$@"
 }
@@ -99,4 +109,5 @@ fi
 
 # Run from the directory we were launched in (mounted at the same path).
 exec devcontainer exec --workspace-folder "$workspace" ${config_args[@]+"${config_args[@]}"} \
+    ${env_args[@]+"${env_args[@]}"} \
     sh -c 'cd "$1" && shift && PATH="$HOME/.local/bin:$PATH" && exec claude "$@"' sh "$PWD" "$@"
