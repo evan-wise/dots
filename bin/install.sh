@@ -137,7 +137,7 @@ if ! command -v npm &> /dev/null; then
   exit 1
 fi
 echo "Installing npm packages..."
-npm install -g typescript-language-server typescript prettier @astrojs/language-server
+npm install -g typescript-language-server typescript prettier @astrojs/language-server @devcontainers/cli
 
 if [ ! -d "$HOME"/.tmux/plugins/tpm ]; then
   echo "Cloning tpm..."

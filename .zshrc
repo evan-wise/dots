@@ -138,6 +138,9 @@ memo() {
 ########################################
 alias .git='/usr/bin/git --git-dir=$HOME/.local/state/dots/.git --work-tree=$HOME'
 
+# Run Claude Code in a dev container (GLOVES_OFF=1 for host).
+alias claude='gloves.sh'
+
 # Setting helpful default flags
 ########################################
 
