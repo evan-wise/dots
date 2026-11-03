@@ -13,6 +13,9 @@
 # the same paths, so the login, settings and plugins are shared with any local
 # install. ~/.gitconfig and ~/.gitconfig-common are mounted too (the devcontainer CLI has no read-only mount option).
 # Note: a container can read the Claude credentials.
+#
+# If ~/.config/gloves/token exists (mode 600, not tracked) its contents are
+# passed in as GH_TOKEN for the gh CLI and HTTPS git pushes.
 
 set -o errexit
 set -o nounset
@@ -107,6 +110,23 @@ if ! dc_exec sh -c 'PATH="$HOME/.local/bin:$PATH"; command -v claude' &> /dev/nu
     dc_exec sh -c 'curl -fsSL https://claude.ai/install.sh | bash'
 fi
 
+# Optional GitHub access: a fine-grained personal access token scoped to the
+# repos you want Claude to touch (Contents + Pull requests read/write). It
+# powers the gh CLI and HTTPS git pushes; SSH keys are never exposed.
+token_file="$HOME/.config/gloves/token"
+env_args=()
+if [ -s "$token_file" ]; then
+    env_args+=(
+        --remote-env "GH_TOKEN=$(tr -d '[:space:]' < "$token_file")"
+        --remote-env "GIT_CONFIG_COUNT=2"
+        --remote-env "GIT_CONFIG_KEY_0=url.https://github.com/.insteadOf"
+        --remote-env "GIT_CONFIG_VALUE_0=git@github.com:"
+        --remote-env "GIT_CONFIG_KEY_1=credential.https://github.com.helper"
+        --remote-env "GIT_CONFIG_VALUE_1=!gh auth git-credential"
+    )
+fi
+
 # Run from the directory we were launched in (mounted at the same path).
 exec devcontainer exec --workspace-folder "$workspace" ${config_args[@]+"${config_args[@]}"} \
+    ${env_args[@]+"${env_args[@]}"} \
     sh -c 'cd "$1" && shift && PATH="$HOME/.local/bin:$PATH" && exec claude "$@"' sh "$PWD" "$@"

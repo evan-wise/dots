@@ -87,7 +87,11 @@ in a different location is based on [this article](https://www.atlassian.com/git
 - `bin/backup.sh`: backs up KeePass and Logs from Dropbox to `~/backup`.
 - `bin/gloves.sh`: runs Claude Code in a sandboxed dev container with the
   current directory mounted (aliased to `claude`; set `GLOVES_OFF=1` to run the
-  host binary). Requires docker and `@devcontainers/cli`.
+  host binary). Requires docker and `@devcontainers/cli`. To allow `gh` and
+  `git push` inside the sandbox, put a fine-grained GitHub token (limited to
+  chosen repos; Contents and Pull requests read/write) in
+  `~/.config/gloves/token` (`chmod 600`); it is passed in as `GH_TOKEN` and
+  `git@github.com:` remotes are rewritten to HTTPS.
 - `bin/tmux-bell-focus.sh`: tmux bell hook that focuses the window that rang.
 
 ### tmux plugins

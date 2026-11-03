@@ -14,6 +14,8 @@
 .mozilla/
 .thunderbird/
 .dwarffortress/
+# Gloves
+.config/gloves/token
 # Neovim
 .netrwhist
 lazy-lock.json
