@@ -55,7 +55,6 @@ in a different location is based on [this article](https://www.atlassian.com/git
   - `completions.lua`: LSP, snippets, and completion plugins.
   - `experimental.lua`: optional/disabled plugins (e.g. nvim-tree, neotest).
 - `.config/hypr/hyprland.lua`: Hyprland compositor configuration.
-- `.config/hypr/hyprpaper.conf`: wallpaper configuration for hyprpaper.
 - `.config/hypr/hyprlock.conf`: lock screen configuration for hyprlock.
 - `.config/hypr/hypridle.conf`: idle daemon configuration for hypridle.
 - `.config/waybar/config.jsonc`: waybar status bar layout and modules.
@@ -63,7 +62,7 @@ in a different location is based on [this article](https://www.atlassian.com/git
 - `.config/dunst/dunstrc`: dunst notification daemon configuration.
 - `.config/greetd/config.toml`: greetd login manager configuration.
 - `.config/systemd/user/`: user systemd service and socket units for
-  PipeWire, Bluetooth, Dropbox, dunst, flameshot, hyprpaper, hypridle,
+  PipeWire, Bluetooth, Dropbox, dunst, flameshot, shades, hypridle,
   waybar, and hyprpolkitagent.
 - `.config/tlp/99-custom.conf`: TLP power management settings, copied to
   `/etc/tlp.d/` by `install.sh`.
@@ -77,6 +76,16 @@ in a different location is based on [this article](https://www.atlassian.com/git
 
 ### Directories
 
+- `src/shades`: Rust source for `shades`, an animated shader wallpaper renderer
+  (Wayland layer-shell + OpenGL ES) that replaces hyprpaper. Shadertoy-style
+  fragment shaders live in `src/shades/shaders/` (flow, waves, metaballs,
+  truchet, voronoi, stars) and share the Gruvbox palette and noise helpers in
+  `src/shades/src/common.glsl`, so they stay color-harmonized. `shades` crossfades
+  through all of them (every 15 minutes, set in `shades.service`) and manages
+  power itself: 60 fps on AC, throttled to 20 fps on battery (`--battery pause`
+  freezes it instead) and paused while hyprlock runs. It reads
+  `/sys/class/power_supply` and listens for kernel uevents, so changes are
+  noticed immediately.
 - `.tmux/plugins`: directory for storing tmux plugins.
 - `src`: directory for storing user authored source code and local copies of public repos.
 
@@ -84,6 +93,8 @@ in a different location is based on [this article](https://www.atlassian.com/git
 
 - `bin/bootstrap.sh`: clones the bare repo and checks out dotfiles into `$HOME`.
 - `bin/install.sh`: installs system packages via `pacman`/`paru` (Arch), `apt` (Debian/Ubuntu) or `brew` (macOS).
+- `bin/build-shades.sh`: builds `src/shades` with cargo and installs the binary
+  as `bin/shades` (git-ignored).
 - `bin/backup.sh`: backs up KeePass and Logs from Dropbox to `~/backup`.
 - `bin/gloves.sh`: runs Claude Code in a sandboxed dev container with the
   current directory mounted (aliased to `claude`; set `GLOVES_OFF=1` to run the
