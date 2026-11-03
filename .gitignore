@@ -46,6 +46,9 @@ haxelib/
 .claude/session-env/
 .claude/shell-snapshots/
 # Custom
-src/
+/src/*
+!/src/shades/
+/src/shades/target/
+/bin/shades
 backup/
 .bash_memos
